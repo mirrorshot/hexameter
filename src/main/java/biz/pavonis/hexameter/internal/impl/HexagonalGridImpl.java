@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
@@ -20,8 +19,7 @@ import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 
 public final class HexagonalGridImpl implements HexagonalGrid {
 
-    private static final int[][] NEIGHBORS = { { +1, 0 }, { +1, -1 },
-            { 0, -1 }, { -1, 0 }, { -1, +1 }, { 0, +1 } };
+    private static final int[][] NEIGHBORS = {{+1, 0}, {+1, -1}, {0, -1}, {-1, 0}, {-1, +1}, {0, +1}};
     private static final int NEIGHBOR_X_INDEX = 0;
     private static final int NEIGHBOR_Z_INDEX = 1;
 
@@ -32,14 +30,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     public HexagonalGridImpl(HexagonalGridBuilder builder) {
         sharedHexagonData = builder.getSharedHexagonData();
         gridLayoutStrategy = builder.getGridLayoutStrategy();
-        if (builder.getCustomStorage() != null) {
-            hexagonStorage = builder.getCustomStorage();
-        } else {
-            hexagonStorage = new ConcurrentHashMap<String, Hexagon>(); // TODO:
-                                                                       // to
-                                                                       // factory
-                                                                       // method
-        }
+        hexagonStorage = builder.getStorage();
         hexagonStorage.putAll(gridLayoutStrategy.createHexagons(builder));
     }
 
@@ -48,7 +39,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     public Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom,
-            int gridXTo, int gridZFrom, int gridZTo) {
+        int gridXTo, int gridZFrom, int gridZTo) {
         Map<String, Hexagon> range = new HashMap<String, Hexagon>();
         for (int gridZ = gridZFrom; gridZ <= gridZTo; gridZ++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
@@ -60,14 +51,14 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     public Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom,
-            int gridXTo, int gridYFrom, int gridYTo) {
+        int gridXTo, int gridYFrom, int gridYTo) {
         Map<String, Hexagon> range = new HashMap<String, Hexagon>();
         for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
                 int axialX = convertOffsetCoordinatesToAxialX(gridX, gridY,
-                        sharedHexagonData.getOrientation());
+                    sharedHexagonData.getOrientation());
                 int axialZ = convertOffsetCoordinatesToAxialZ(gridX, gridY,
-                        sharedHexagonData.getOrientation());
+                    sharedHexagonData.getOrientation());
                 String key = createKeyFromCoordinate(axialX, axialZ);
                 range.put(key, getByGridCoordinate(axialX, axialZ));
             }
@@ -88,7 +79,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     public boolean containsCoordinate(int gridX, int gridZ) {
         return hexagonStorage
-                .containsKey(createKeyFromCoordinate(gridX, gridZ));
+            .containsKey(createKeyFromCoordinate(gridX, gridZ));
     }
 
     public Hexagon getByGridCoordinate(int gridX, int gridZ) {
@@ -99,8 +90,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     private void checkCoordinate(int gridX, int gridZ) {
         if (!containsCoordinate(gridX, gridZ)) {
             throw new HexagonNotFoundException(
-                    "Coordinates are off the grid: (x=" + gridX + ",z=" + gridZ
-                            + ")");
+                "Coordinates are off the grid: (x=" + gridX + ",z=" + gridZ
+                + ")");
         }
     }
 
@@ -108,13 +99,13 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         int estimatedGridX = (int) (x / sharedHexagonData.getWidth());
         int estimatedGridZ = (int) (y / sharedHexagonData.getHeight());
         estimatedGridX = convertOffsetCoordinatesToAxialX(estimatedGridX,
-                estimatedGridZ, sharedHexagonData.getOrientation());
+            estimatedGridZ, sharedHexagonData.getOrientation());
         estimatedGridZ = convertOffsetCoordinatesToAxialZ(estimatedGridX,
-                estimatedGridZ, sharedHexagonData.getOrientation());
+            estimatedGridZ, sharedHexagonData.getOrientation());
         // it is possible that the estimated coordinates are off the grid so we
         // create a virtual hexagon
         Hexagon tempHex = new HexagonImpl(sharedHexagonData, estimatedGridX,
-                estimatedGridZ);
+            estimatedGridZ);
         Hexagon trueHex = refineHexagonByPixel(tempHex, x, y);
         if (hexagonsAreAtTheSamePosition(tempHex, trueHex)) {
             return getByGridCoordinate(estimatedGridX, estimatedGridZ);
@@ -139,17 +130,17 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     private boolean hexagonsAreAtTheSamePosition(Hexagon hex0, Hexagon hex1) {
         return hex0.getGridX() == hex1.getGridX()
-                && hex0.getGridZ() == hex1.getGridZ();
+            && hex0.getGridZ() == hex1.getGridZ();
     }
 
     private Hexagon refineHexagonByPixel(Hexagon hexagon, double x, double y) {
         Hexagon refined = hexagon;
         Point clickedPoint = new Point(x, y);
         double smallestDistance = Point.distance(clickedPoint, new Point(
-                refined.getCenterX(), refined.getCenterY()));
+            refined.getCenterX(), refined.getCenterY()));
         for (Hexagon neighbor : getNeighborsOf(hexagon)) {
             double currentDistance = Point.distance(clickedPoint, new Point(
-                    neighbor.getCenterX(), neighbor.getCenterY()));
+                neighbor.getCenterX(), neighbor.getCenterY()));
             if (currentDistance < smallestDistance) {
                 refined = neighbor;
                 smallestDistance = currentDistance;

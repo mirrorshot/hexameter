@@ -42,7 +42,7 @@ public class HexagonalGridImplTest {
 	@Test
 	public void testHexagonalGridImplWithCustomStorage() {
 		Map<String, Hexagon> expected = new HashMap<String, Hexagon>();
-		builder.setCustomStorage(expected);
+		builder.setStorage(expected);
 		target = builder.build();
 		assertEquals(expected, target.getHexagons());
 	}
