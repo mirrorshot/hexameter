@@ -6,52 +6,56 @@ package biz.pavonis.hexameter.api;
  */
 public final class CoordinateConverter {
 
-	public CoordinateConverter() {
-		throw new UnsupportedOperationException("Utility classes should not be instantiated.");
-	}
+    public CoordinateConverter() {
+        throw new UnsupportedOperationException("Utility classes should not be instantiated.");
+    }
 
-	/**
-	 * Calculates the axial X coordinate based on an offset coordinate pair.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param orientation
-	 * @return
-	 */
-	public static int convertOffsetCoordinatesToAxialX(int x, int y, HexagonOrientation orientation) {
-		return HexagonOrientation.FLAT_TOP.equals(orientation) ? x : x - (int) Math.floor(y / 2);
-	}
+    /**
+     * Calculates the axial X coordinate based on an offset coordinate pair.
+     * 
+     * @param x
+     * @param y
+     * @param orientation
+     * @return
+     */
+    public static int convertOffsetCoordinatesToAxialX(int x, int y, HexagonOrientation orientation) {
+        return HexagonOrientation.FLAT_TOP.equals(orientation) ? x : x - (int) Math.floor(y / 2);
+    }
 
-	/**
-	 * Calculates the axial Z coordinate based on an offset coordinate pair.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param orientation
-	 * @return
-	 */
-	public static int convertOffsetCoordinatesToAxialZ(int x, int y, HexagonOrientation orientation) {
-		return HexagonOrientation.FLAT_TOP.equals(orientation) ? y - (int) Math.floor(x / 2) : y;
-	}
+    /**
+     * Calculates the axial Z coordinate based on an offset coordinate pair.
+     * 
+     * @param x
+     * @param y
+     * @param orientation
+     * @return
+     */
+    public static int convertOffsetCoordinatesToAxialZ(int x, int y, HexagonOrientation orientation) {
+        return HexagonOrientation.FLAT_TOP.equals(orientation) ? y - (int) Math.floor(x / 2) : y;
+    }
 
-	/**
-	 * Creates a key based on a grid coordinate to be used in lookups.
-	 * 
-	 * @param gridX
-	 * @param gridZ
-	 * @return key based on coordinate
-	 */
-	public static String createKeyFromCoordinate(int gridX, int gridZ) {
-		return gridX + "," + gridZ;
-	}
+    /**
+     * Creates a key based on a grid coordinate to be used in lookups.
+     * 
+     * @param gridX
+     * @param gridZ
+     * @return key based on coordinate
+     */
+    public static String createKeyFromCoordinate(int gridX, int gridZ) {
+        return gridX + "," + gridZ;
+    }
 
-	/**
-	 * Creates an {@link AxialCoordinate} based on a key.
-	 * 
-	 * @param key
-	 * @return {@link AxialCoordinate}
-	 */
-	public static AxialCoordinate createCoordinateFromKey(String key) {
-		return new AxialCoordinate(Integer.valueOf(key.split(",")[0]), Integer.valueOf(key.split(",")[1]));
-	}
+    public static String createKeyFromHexagon(Hexagon hex) {
+        return createKeyFromCoordinate(hex.getGridX(), hex.getGridZ());
+    }
+
+    /**
+     * Creates an {@link AxialCoordinate} based on a key.
+     * 
+     * @param key
+     * @return {@link AxialCoordinate}
+     */
+    public static AxialCoordinate createCoordinateFromKey(String key) {
+        return new AxialCoordinate(Integer.valueOf(key.split(",")[0]), Integer.valueOf(key.split(",")[1]));
+    }
 }
