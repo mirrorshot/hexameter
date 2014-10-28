@@ -15,52 +15,48 @@ import biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutSt
  */
 public enum HexagonalGridLayout {
 
-	/**
-	 * A rectangular layout has no special rules.
-	 */
-	RECTANGULAR(new RectangularGridLayoutStrategy()),
+    /**
+     * A rectangular layout has no special rules.
+     */
+    RECTANGULAR(new RectangularGridLayoutStrategy()),
+    /**
+     * The hexagonal layout must have equal width and height and
+     * it must be odd.
+     */
+    HEXAGONAL(new HexagonalGridLayoutStrategy()),
+    /**
+     * A triangular layout must have equal width and height.
+     */
+    TRIANGULAR(new TriangularGridLayoutStrategy()),
+    /**
+     * A trapezoid layout has no special rules.
+     */
+    TRAPEZOID(new TrapezoidGridLayoutStrategy()),
+    /**
+     * Represents a custom grid layout strategy. It will
+     * add {@link Hexagon}s to the grid based on the coordinates
+     * set by the user.
+     */
+    CUSTOM(new CustomGridLayoutStrategy());
 
-	/**
-	 * The hexagonal layout must have equal width and height and
-	 * it must be odd.
-	 */
-	HEXAGONAL(new HexagonalGridLayoutStrategy()),
+    private GridLayoutStrategy gridLayoutStrategy;
 
-	/**
-	 * A triangular layout must have equal width and height.
-	 */
-	TRIANGULAR(new TriangularGridLayoutStrategy()),
+    private HexagonalGridLayout(GridLayoutStrategy gridLayoutStrategy) {
+        this.gridLayoutStrategy = gridLayoutStrategy;
+    }
 
-	/**
-	 * A trapezoid layout has no special rules.
-	 */
-	TRAPEZOID(new TrapezoidGridLayoutStrategy()),
+    public GridLayoutStrategy getGridLayoutStrategy() {
+        return gridLayoutStrategy;
+    }
 
-	/**
-	 * Represents a custom grid layout strategy. It will
-	 * add {@link Hexagon}s to the grid based on the coordinates
-	 * set by the user.
-	 */
-	CUSTOM(new CustomGridLayoutStrategy());
-
-	private GridLayoutStrategy gridLayoutStrategy;
-
-	private HexagonalGridLayout(GridLayoutStrategy gridLayoutStrategy) {
-		this.gridLayoutStrategy = gridLayoutStrategy;
-	}
-
-	public GridLayoutStrategy getGridLayoutStrategy() {
-		return gridLayoutStrategy;
-	}
-
-	/**
-	 * Checks whether the grid height/width parameters can be used for the given {@link GridLayoutStrategy}.
-	 * 
-	 * @param gridHeight
-	 * @param gridWidth
-	 * @return valid?
-	 */
-	boolean checkParameters(int gridHeight, int gridWidth) {
-		return getGridLayoutStrategy().checkParameters(gridHeight, gridWidth);
-	}
+    /**
+     * Checks whether the grid height/width parameters can be used for the given {@link GridLayoutStrategy}.
+     *
+     * @param gridHeight
+     * @param gridWidth
+     * @return valid?
+     */
+    boolean checkParameters(int gridHeight, int gridWidth) {
+        return getGridLayoutStrategy().checkParameters(gridHeight, gridWidth);
+    }
 }

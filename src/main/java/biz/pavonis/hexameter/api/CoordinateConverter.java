@@ -12,7 +12,7 @@ public final class CoordinateConverter {
 
     /**
      * Calculates the axial X coordinate based on an offset coordinate pair.
-     * 
+     *
      * @param x
      * @param y
      * @param orientation
@@ -24,7 +24,7 @@ public final class CoordinateConverter {
 
     /**
      * Calculates the axial Z coordinate based on an offset coordinate pair.
-     * 
+     *
      * @param x
      * @param y
      * @param orientation
@@ -36,7 +36,7 @@ public final class CoordinateConverter {
 
     /**
      * Creates a key based on a grid coordinate to be used in lookups.
-     * 
+     *
      * @param gridX
      * @param gridZ
      * @return key based on coordinate
@@ -51,11 +51,12 @@ public final class CoordinateConverter {
 
     /**
      * Creates an {@link AxialCoordinate} based on a key.
-     * 
+     *
      * @param key
      * @return {@link AxialCoordinate}
      */
     public static AxialCoordinate createCoordinateFromKey(String key) {
-        return new AxialCoordinate(Integer.valueOf(key.split(",")[0]), Integer.valueOf(key.split(",")[1]));
+        String[] split = key.split(",");
+        return new AxialCoordinate(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
     }
 }

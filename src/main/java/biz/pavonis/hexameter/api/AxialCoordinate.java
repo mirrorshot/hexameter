@@ -1,25 +1,25 @@
 package biz.pavonis.hexameter.api;
 
 /**
- * Represents an axial coorinate pair.
+ * Represents an axial coordinate pair.
  */
 public final class AxialCoordinate {
 
-	private final int gridX;
-	private final int gridZ;
+    private final int gridX;
+    private final int gridZ;
 
-	public AxialCoordinate(int gridX, int gridZ) {
-		super();
-		this.gridX = gridX;
-		this.gridZ = gridZ;
-	}
+    public AxialCoordinate(int gridX, int gridZ) {
+        super();
+        this.gridX = gridX;
+        this.gridZ = gridZ;
+    }
 
-	public int getGridX() {
-		return gridX;
-	}
+    public int getGridX() {
+        return gridX;
+    }
 
-	public int getGridZ() {
-		return gridZ;
-	}
+    public int getGridZ() {
+        return gridZ;
+    }
 
 }

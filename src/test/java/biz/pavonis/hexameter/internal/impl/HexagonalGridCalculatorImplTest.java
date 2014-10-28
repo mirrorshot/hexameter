@@ -2,16 +2,14 @@ package biz.pavonis.hexameter.internal.impl;
 
 import static junit.framework.Assert.assertEquals;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.api.HexagonalGridCalculator;
+import java.util.HashSet;
+import java.util.Set;
+import org.junit.Before;
+import org.junit.Test;
 
 public class HexagonalGridCalculatorImplTest {
 
@@ -21,7 +19,7 @@ public class HexagonalGridCalculatorImplTest {
     @Before
     public void setUp() throws Exception {
         HexagonalGridBuilder builder = new HexagonalGridBuilder()
-                .setGridHeight(10).setGridWidth(10).setRadius(10);
+            .setGridHeight(10).setGridWidth(10).setRadius(10);
         grid = builder.build();
         target = builder.buildCalculatorFor(grid);
     }

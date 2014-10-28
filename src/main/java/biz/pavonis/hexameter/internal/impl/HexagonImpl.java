@@ -3,12 +3,11 @@ package biz.pavonis.hexameter.internal.impl;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
 import biz.pavonis.hexameter.api.Point;
 import biz.pavonis.hexameter.internal.SharedHexagonData;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Default implementation of the {@link Hexagon} interface.
@@ -32,7 +31,7 @@ public class HexagonImpl implements Hexagon {
         this.gridX = gridX;
         this.gridZ = gridZ;
         if (HexagonOrientation.FLAT_TOP.equals(sharedHexagonData
-                .getOrientation())) {
+            .getOrientation())) {
             centerX = gridX * width + radius;
             centerY = gridZ * height + gridX * height / 2 + height / 2;
         } else {
@@ -50,10 +49,10 @@ public class HexagonImpl implements Hexagon {
         Point[] points = new Point[6];
         for (int i = 0; i < 6; i++) {
             double angle = 2
-                    * Math.PI
-                    / 6
-                    * (i + sharedHexagonData.getOrientation()
-                            .getCoordinateOffset());
+                * Math.PI
+                / 6
+                * (i + sharedHexagonData.getOrientation()
+                .getCoordinateOffset());
             double x = centerX + sharedHexagonData.getRadius() * cos(angle);
             double y = centerY + sharedHexagonData.getRadius() * sin(angle);
             points[i] = new Point(x, y);
