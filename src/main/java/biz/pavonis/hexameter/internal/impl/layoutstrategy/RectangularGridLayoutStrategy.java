@@ -33,7 +33,4 @@ public final class RectangularGridLayoutStrategy extends AbstractGridLayoutStrat
         return hexagons;
     }
 
-    public boolean checkParameters(int gridHeight, int gridWidth) {
-        return super.checkParameters(gridHeight, gridWidth);
-    }
 }

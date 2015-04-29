@@ -25,7 +25,7 @@ public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrateg
     public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
         double gridSize = builder.getGridHeight();
         Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
-        int startX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
+        int startX = (int) (HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? floor(gridSize / 2d) : round(gridSize / 4d));
         int hexRadius = (int) floor(gridSize / 2d);
         int minX = startX - hexRadius;
         for (int y = 0; y < gridSize; y++) {

@@ -1,0 +1,7 @@
+biz.pavonis.hexameter.api
+biz.pavonis.hexameter.api.exception
+biz.pavonis.hexameter.categories
+biz.pavonis.hexameter.internal
+biz.pavonis.hexameter.internal.impl
+biz.pavonis.hexameter.internal.impl.layoutstrategy
+biz.pavonis.hexameter.testutils
