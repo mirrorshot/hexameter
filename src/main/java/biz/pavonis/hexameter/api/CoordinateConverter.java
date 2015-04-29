@@ -6,7 +6,7 @@ package biz.pavonis.hexameter.api;
  */
 public final class CoordinateConverter {
 
-    public CoordinateConverter() {
+    private CoordinateConverter() {
         throw new UnsupportedOperationException("Utility classes should not be instantiated.");
     }
 
