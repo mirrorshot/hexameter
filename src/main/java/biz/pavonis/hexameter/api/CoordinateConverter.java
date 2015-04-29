@@ -19,7 +19,7 @@ public final class CoordinateConverter {
      * @return
      */
     public static int convertOffsetCoordinatesToAxialX(int x, int y, HexagonOrientation orientation) {
-        return HexagonOrientation.FLAT_TOP.equals(orientation) ? x : x - (int) Math.floor(y / 2);
+        return HexagonOrientation.FLAT_TOP.equals(orientation) ? x : x - (int) Math.floor(y / 2.0);
     }
 
     /**
@@ -31,7 +31,7 @@ public final class CoordinateConverter {
      * @return
      */
     public static int convertOffsetCoordinatesToAxialZ(int x, int y, HexagonOrientation orientation) {
-        return HexagonOrientation.FLAT_TOP.equals(orientation) ? y - (int) Math.floor(x / 2) : y;
+        return HexagonOrientation.FLAT_TOP.equals(orientation) ? y - (int) Math.floor(x / 2.0) : y;
     }
 
     /**
@@ -45,7 +45,14 @@ public final class CoordinateConverter {
         return gridX + "," + gridZ;
     }
 
-    public static String createKeyFromHexagon(Hexagon hex) {
+    /**
+     * Creates a key that is the coordinate of the given hexagon
+     * in the grid to be printed.
+     *
+    * @param hex the hexagon for wicht the coordinate are needed
+    * @return key coordinate of the hexagon
+    */
+   public static String createKeyFromHexagon(Hexagon hex) {
         return createKeyFromCoordinate(hex.getGridX(), hex.getGridZ());
     }
 
