@@ -194,7 +194,8 @@ public final class HexagonalGridBuilder {
     }
 
     public SharedHexagonData getSharedHexagonData() {
-        if (orientation == null || radius == 0) {
+        Float zero = new Float(0.0);
+        if (orientation == null || zero.equals(radius)) {
             throw new IllegalStateException("orientation or radius is not yet initialized");
         }
         return new SharedHexagonData(orientation, radius);
