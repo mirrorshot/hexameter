@@ -67,5 +67,17 @@ public interface Hexagon extends Serializable {
      * @return
      */
     <T> T getSatelliteData();
+    
+   /**
+    * Sets the {@link Hexagon} to be or not an obstacle.
+    * 
+    * @param obstacle
+    */
+   void becomeObstacle(boolean obstacle);
+    
+    /**
+    * @return true if the hexagon is set to be a obstacle in the map
+    */
+   boolean isObstacle();
 
 }

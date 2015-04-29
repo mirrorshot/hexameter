@@ -27,18 +27,29 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     private final SharedHexagonData sharedHexagonData;
     private final Map<String, Hexagon> hexagonStorage;
 
-    public HexagonalGridImpl(HexagonalGridBuilder builder) {
+    /**
+     * Instantiate a HexagonalGrid from a {@link HexagonalGridBuilder}
+     * 
+    * @param builder for the {@link HexagonalGrid}
+    */
+   public HexagonalGridImpl(HexagonalGridBuilder builder) {
         sharedHexagonData = builder.getSharedHexagonData();
         gridLayoutStrategy = builder.getGridLayoutStrategy();
         hexagonStorage = builder.getStorage();
         hexagonStorage.putAll(gridLayoutStrategy.createHexagons(builder));
     }
 
-    public Map<String, Hexagon> getHexagons() {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#getHexagons()
+    */
+   public Map<String, Hexagon> getHexagons() {
         return hexagonStorage;
     }
 
-    public Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom,
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#getHexagonsByAxialRange(int, int, int, int)
+    */
+   public Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom,
         int gridXTo, int gridZFrom, int gridZTo) {
         Map<String, Hexagon> range = new HashMap<String, Hexagon>();
         for (int gridZ = gridZFrom; gridZ <= gridZTo; gridZ++) {
@@ -50,7 +61,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         return range;
     }
 
-    public Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom,
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#getHexagonsByOffsetRange(int, int, int, int)
+    */
+   public Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom,
         int gridXTo, int gridYFrom, int gridYTo) {
         Map<String, Hexagon> range = new HashMap<String, Hexagon>();
         for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
@@ -66,36 +80,55 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         return range;
     }
 
-    public Hexagon addHexagon(int gridX, int gridZ) {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#addHexagon(int, int)
+    */
+   public Hexagon addHexagon(int gridX, int gridZ) {
         Hexagon newHex = new HexagonImpl(sharedHexagonData, gridX, gridZ);
         hexagonStorage.put(createKeyFromCoordinate(gridX, gridZ), newHex);
         return newHex;
     }
 
-    public Hexagon removeHexagon(int gridX, int gridZ) {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#removeHexagon(int, int)
+    */
+   public Hexagon removeHexagon(int gridX, int gridZ) {
         checkCoordinate(gridX, gridZ);
         return hexagonStorage.remove(createKeyFromCoordinate(gridX, gridZ));
     }
 
-    public boolean containsCoordinate(int gridX, int gridZ) {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#containsCoordinate(int, int)
+    */
+   public boolean containsCoordinate(int gridX, int gridZ) {
         return hexagonStorage
             .containsKey(createKeyFromCoordinate(gridX, gridZ));
     }
 
-    public Hexagon getByGridCoordinate(int gridX, int gridZ) {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#getByGridCoordinate(int, int)
+    */
+   public Hexagon getByGridCoordinate(int gridX, int gridZ) {
         checkCoordinate(gridX, gridZ);
         return hexagonStorage.get(createKeyFromCoordinate(gridX, gridZ));
     }
 
-    private void checkCoordinate(int gridX, int gridZ) {
+    /**
+     * If given coordinate is invalid throws a {@link HexagonNotFoundException}
+     * 
+    * @param gridX
+    * @param gridZ
+    */
+   private void checkCoordinate(int gridX, int gridZ) {
         if (!containsCoordinate(gridX, gridZ)) {
-            throw new HexagonNotFoundException(
-                "Coordinates are off the grid: (x=" + gridX + ",z=" + gridZ
-                + ")");
+            throw new HexagonNotFoundException("Coordinates are off the grid: (x=" + gridX + ",z=" + gridZ + ")");
         }
     }
 
-    public Hexagon getByPixelCoordinate(double x, double y) {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#getByPixelCoordinate(double, double)
+    */
+   public Hexagon getByPixelCoordinate(double x, double y) {
         int estimatedGridX = (int) (x / sharedHexagonData.getWidth());
         int estimatedGridZ = (int) (y / sharedHexagonData.getHeight());
         estimatedGridX = convertOffsetCoordinatesToAxialX(estimatedGridX,
@@ -114,7 +147,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         }
     }
 
-    public Set<Hexagon> getNeighborsOf(Hexagon hexagon) {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#getNeighborsOf(biz.pavonis.hexameter.api.Hexagon)
+    */
+   public Set<Hexagon> getNeighborsOf(Hexagon hexagon) {
         Set<Hexagon> neighbors = new HashSet<Hexagon>();
         for (int[] neighbor : NEIGHBORS) {
             Hexagon retHex = null;
@@ -128,16 +164,30 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         return neighbors;
     }
 
-    private boolean hexagonsAreAtTheSamePosition(Hexagon hex0, Hexagon hex1) {
+    /**
+     * Checks if two hexagons are in the same position of the grid
+     * 
+    * @param hex0 first hexagon to test
+    * @param hex1 second hexagon to test
+    * @return true if coordinate of the two hexagons are the same
+    */
+   private boolean hexagonsAreAtTheSamePosition(Hexagon hex0, Hexagon hex1) {
         return hex0.getGridX() == hex1.getGridX()
             && hex0.getGridZ() == hex1.getGridZ();
     }
 
-    private Hexagon refineHexagonByPixel(Hexagon hexagon, double x, double y) {
+    /**
+     * 
+     * 
+    * @param hexagon
+    * @param x
+    * @param y
+    * @return
+    */
+   private Hexagon refineHexagonByPixel(Hexagon hexagon, double x, double y) {
         Hexagon refined = hexagon;
         Point clickedPoint = new Point(x, y);
-        double smallestDistance = Point.distance(clickedPoint, new Point(
-            refined.getCenterX(), refined.getCenterY()));
+        double smallestDistance = Point.distance(clickedPoint, new Point(refined.getCenterX(), refined.getCenterY()));
         for (Hexagon neighbor : getNeighborsOf(hexagon)) {
             double currentDistance = Point.distance(clickedPoint, new Point(
                 neighbor.getCenterX(), neighbor.getCenterY()));
@@ -149,7 +199,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         return refined;
     }
 
-    public void clearSatelliteData() {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGrid#clearSatelliteData()
+    */
+   public void clearSatelliteData() {
         for (String key : hexagonStorage.keySet()) {
             hexagonStorage.get(key).setSatelliteData(null);
         }

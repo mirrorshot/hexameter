@@ -28,6 +28,16 @@ public interface HexagonalGridCalculator {
     int calculateDistanceBetween(Hexagon hex0, Hexagon hex1);
 
     /**
+     * Calculates the distance (in hexagons) between two {@link Hexagon} objects on the grid 
+     * considering the presence of obstacles.
+     *
+     * @param hex0
+     * @param hex1
+     * @return distance
+     */
+    int calculateObstacleDistanceBetween(Hexagon hex0, Hexagon hex1);
+
+    /**
      * Returns all {@link Hexagon}s which are within distance (inclusive) from the {@link Hexagon}.
      *
      * @param hexagon {@link Hexagon}
@@ -35,4 +45,15 @@ public interface HexagonalGridCalculator {
      * @return {@link Hexagon}s within distance (inclusive)
      */
     Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
+
+    /**
+     * Returns all {@link Hexagon}s which are within distance (inclusive) from the {@link Hexagon}
+     * considering presence of obstacles.
+     *
+     * @param hexagon {@link Hexagon}
+     * @param distance
+     * @return {@link Hexagon}s within distance (inclusive)
+     */
+    Set<Hexagon> calculateObstacleMovementRangeFrom(Hexagon hexagon, int distance);
+
 }

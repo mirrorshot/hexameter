@@ -22,6 +22,7 @@ Pull reqeusts are also welcome!*
  - Getting the neighbors of a hexagon
  - Calculating the distance between two hexagons
  - Calculating the movement range from a hexagon
+ - Pathfinding with obstacles
  
 ## Miscallaneous operations
  - Adding/removing a Hexagon from the grid
@@ -33,7 +34,6 @@ Pull reqeusts are also welcome!*
  
 ### Roadmap:
  - Field of view calculation with obstacles
- - Pathfinding with obstacles
  - Movement range with obstacles
  
 ## License

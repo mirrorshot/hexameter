@@ -21,8 +21,10 @@ public class HexagonImpl implements Hexagon {
     private final int gridX;
     private final int gridZ;
     private AtomicReference<Object> satelliteData;
+    private boolean obstacle;
 
     public HexagonImpl(SharedHexagonData sharedHexagonData, int gridX, int gridZ) {
+        this.obstacle = false;
         this.sharedHexagonData = sharedHexagonData;
         this.satelliteData = new AtomicReference<Object>();
         double height = sharedHexagonData.getHeight();
@@ -90,6 +92,14 @@ public class HexagonImpl implements Hexagon {
 
     public final double getCenterY() {
         return centerY;
+    }
+    
+    public void becomeObstacle(boolean obstacle){
+       this.obstacle = obstacle;
+    }
+    
+    public boolean isObstacle(){
+       return obstacle;
     }
 
 }
