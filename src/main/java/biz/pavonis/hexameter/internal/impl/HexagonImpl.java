@@ -45,7 +45,10 @@ public class HexagonImpl implements Hexagon {
         return "Hex#{x=" + gridX + ", z=" + gridZ + "}";
     }
 
-    public final Point[] getPoints() {
+    /* 
+    * @see biz.pavonis.hexameter.api.Hexagon#getPoints()
+    */
+   public final Point[] getPoints() {
         Point[] points = new Point[6];
         for (int i = 0; i < 6; i++) {
             double angle = 2

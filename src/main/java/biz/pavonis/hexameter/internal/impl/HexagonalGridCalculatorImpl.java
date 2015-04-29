@@ -18,14 +18,20 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
         this.hexagonalGrid = hexagonalGrid;
     }
 
-    public int calculateDistanceBetween(Hexagon hex0, Hexagon hex1) {
-        double absX = abs(hex0.getGridX() - hex1.getGridX());
-        double absY = abs(hex0.getGridY() - hex1.getGridY());
-        double absZ = abs(hex0.getGridZ() - hex1.getGridZ());
-        return (int) max(max(absX, absY), absZ);
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateDistanceBetween(biz.pavonis.hexameter.api.Hexagon, biz.pavonis.hexameter.api.Hexagon)
+    */
+   public int calculateDistanceBetween(Hexagon hex0, Hexagon hex1) {
+        int absX = abs(hex0.getGridX() - hex1.getGridX());
+        int absY = abs(hex0.getGridY() - hex1.getGridY());
+        int absZ = abs(hex0.getGridZ() - hex1.getGridZ());
+        return max(max(absX, absY), absZ);
     }
 
-    public Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
+    /**
+    * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateMovementRangeFrom(biz.pavonis.hexameter.api.Hexagon, int)
+    */
+   public Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
         Set<Hexagon> ret = new HashSet<Hexagon>();
         for (int x = -distance; x <= distance; x++) {
             for (int y = max(-distance, -x - distance); y <= min(distance, -x
