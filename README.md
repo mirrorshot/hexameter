@@ -41,4 +41,6 @@ Hexameter is made available under the [MIT License](http://www.opensource.org/li
 
 ## Credits
 
-Hexameter is created and maintained by Adam Arold
+Thanks to Adam Arold for the big work
+Thanks to user georgeek
+This version by Daniele Brambilla
