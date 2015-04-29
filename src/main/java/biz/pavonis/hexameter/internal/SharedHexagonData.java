@@ -2,6 +2,8 @@ package biz.pavonis.hexameter.internal;
 
 import static java.lang.Math.sqrt;
 
+import java.io.Serializable;
+
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
 import biz.pavonis.hexameter.api.HexagonalGrid;
@@ -10,7 +12,9 @@ import biz.pavonis.hexameter.api.HexagonalGrid;
  * Immutable class which holds the shared data between the {@link Hexagon}s of a {@link HexagonalGrid}.
  * This is just for optimization of memory usage.
  */
-public final class SharedHexagonData {
+public final class SharedHexagonData implements Serializable{
+   
+   public static final long serialVersionUID = 1L;
 
     private final HexagonOrientation orientation;
     private final double radius;
