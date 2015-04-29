@@ -16,8 +16,8 @@ public class PointTest {
         double x = 0;
         double y = 1;
         Point p = new Point(x, y);
-        assertEquals(x, p.x);
-        assertEquals(y, p.y);
+        assertEquals(x, p.getX());
+        assertEquals(y, p.getY());
     }
 
     @Test

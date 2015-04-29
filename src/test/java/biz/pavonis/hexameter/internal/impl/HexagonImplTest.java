@@ -38,8 +38,8 @@ public class HexagonImplTest {
     @Test
     public void testGetPointsPointy() {
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].x, (int) round(target.getPoints()[i].x));
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].y, (int) round(target.getPoints()[i].y));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
         }
     }
 
@@ -47,8 +47,8 @@ public class HexagonImplTest {
     public void testGetPointsFlat() {
         target = new HexagonImpl(TEST_FLAT_DATA, TEST_GRID_X, TEST_GRID_Z);
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].x, (int) round(target.getPoints()[i].x));
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].y, (int) round(target.getPoints()[i].y));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
         }
     }
 

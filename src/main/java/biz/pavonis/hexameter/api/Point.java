@@ -5,8 +5,8 @@ package biz.pavonis.hexameter.api;
  */
 public final class Point {
 
-    public final double x;
-    public final double y;
+    private final double x;
+    private final double y;
 
     public Point(double x, double y) {
         super();
@@ -14,7 +14,17 @@ public final class Point {
         this.y = y;
     }
 
-    /**
+    
+   public double getX() {
+      return x;
+   }
+
+   
+   public double getY() {
+      return y;
+   }
+
+   /**
      * Calculates a distance between two points.
      *
      * @param p0
