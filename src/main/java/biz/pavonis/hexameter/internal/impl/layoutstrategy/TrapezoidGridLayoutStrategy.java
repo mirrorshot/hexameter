@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class TrapezoidGridLayoutStrategy extends AbstractGridLayoutStrategy {
+   
+   public static final long serialVersionUID = 1L;
 
     public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
         Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();

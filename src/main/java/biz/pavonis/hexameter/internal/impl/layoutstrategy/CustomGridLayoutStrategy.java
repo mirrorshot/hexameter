@@ -11,6 +11,8 @@ import java.util.Map;
  * shape.
  */
 public final class CustomGridLayoutStrategy extends AbstractGridLayoutStrategy {
+   
+   public static final long serialVersionUID = 1L;
 
     public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
         Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();

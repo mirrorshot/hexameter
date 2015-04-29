@@ -19,6 +19,8 @@ import java.util.Map;
  * shape.
  */
 public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrategy {
+   
+   public static final long serialVersionUID = 1L;
 
     public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
         double gridSize = builder.getGridHeight();

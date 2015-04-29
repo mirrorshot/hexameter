@@ -9,6 +9,8 @@ import biz.pavonis.hexameter.internal.impl.HexagonImpl;
 import java.util.Map;
 
 public abstract class AbstractGridLayoutStrategy implements GridLayoutStrategy {
+   
+   public static final long serialVersionUID = 1L;
 
     protected void addCustomHexagons(HexagonalGridBuilder builder, Map<String, Hexagon> hexagons) {
         for (AxialCoordinate coord : builder.getCustomCoordinates()) {

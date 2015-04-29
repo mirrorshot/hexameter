@@ -1,14 +1,16 @@
 package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
+import java.io.Serializable;
+import java.util.Map;
+
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
-import java.util.Map;
 
 /**
  * Represents the method of creating a {@link HexagonalGrid} corresponding to a given shape.
  */
-public interface GridLayoutStrategy {
+public interface GridLayoutStrategy extends Serializable{
 
     /**
      * Creates the {@link Hexagon} objects which fit in the shape
