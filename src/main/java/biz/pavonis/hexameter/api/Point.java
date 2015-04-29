@@ -15,11 +15,17 @@ public final class Point {
     }
 
     
+   /**
+    * @return value of x of point
+    */
    public double getX() {
       return x;
    }
 
    
+   /**
+    * @return value of y of point
+    */
    public double getY() {
       return y;
    }
@@ -31,7 +37,7 @@ public final class Point {
      * @param p1
      * @return distance
      */
-    public final static double distance(Point p0, Point p1) {
+    public static final double distance(Point p0, Point p1) {
         return Math.sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
     }
 }
