@@ -4,7 +4,6 @@ import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,13 +58,11 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
    public Set<Hexagon> calculateObstacleMovementRangeFrom(Hexagon hexagon, int distance){
       Set<Hexagon> reach = new HashSet<Hexagon>();
       reach.add(hexagon);
-      Set<Hexagon> local = this.calculateMovementRangeFrom(hexagon, 1);
-      if(distance == 1){
-         for(Hexagon target : local)
-            if((!target.isObstacle()) && (!reach.contains(target)))
-               reach.add(target);
-      }
-      else{
+      if(distance == 0)
+      	return reach;
+      else {
+    	 Set<Hexagon> local = calculateMovementRangeFrom(hexagon,1);
+    	 local = hexagonalGrid.getNeighborsOf(hexagon);
          for(Hexagon step : local){
             if(!step.isObstacle()){
                reach.add(step);
@@ -73,13 +70,12 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
             }
          }
       }
-      ArrayList<Hexagon> lis = new ArrayList<Hexagon>();
+      Set<Hexagon> clean = new HashSet<Hexagon>();
       for(Hexagon hex : reach){
-         if(!lis.contains(hex))
-            lis.add(hex);
+         if(!clean.contains(hex))
+            clean.add(hex);
       }
-      reach.retainAll(lis);
-      return reach;
+      return clean;
    }
    
 }
