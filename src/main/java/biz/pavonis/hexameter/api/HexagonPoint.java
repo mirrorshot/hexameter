@@ -3,12 +3,12 @@ package biz.pavonis.hexameter.api;
 /**
  * Represents a point.
  */
-public final class Point {
+public final class HexagonPoint {
 
     private final double x;
     private final double y;
 
-    public Point(double x, double y) {
+    public HexagonPoint(double x, double y) {
         super();
         this.x = x;
         this.y = y;
@@ -37,7 +37,7 @@ public final class Point {
      * @param p1
      * @return distance
      */
-    public static final double distance(Point p0, Point p1) {
+    public static final double distance(HexagonPoint p0, HexagonPoint p1) {
         return Math.sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
     }
 }

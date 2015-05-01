@@ -5,7 +5,7 @@ import static java.lang.Math.sin;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
-import biz.pavonis.hexameter.api.Point;
+import biz.pavonis.hexameter.api.HexagonPoint;
 import biz.pavonis.hexameter.internal.SharedHexagonData;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -50,8 +50,8 @@ public class HexagonImpl implements Hexagon {
     /* 
     * @see biz.pavonis.hexameter.api.Hexagon#getPoints()
     */
-   public final Point[] getPoints() {
-        Point[] points = new Point[6];
+   public final HexagonPoint[] getHexagonPoints() {
+        HexagonPoint[] points = new HexagonPoint[6];
         for (int i = 0; i < 6; i++) {
             double angle = 2
                 * Math.PI
@@ -60,7 +60,7 @@ public class HexagonImpl implements Hexagon {
                 .getCoordinateOffset());
             double x = centerX + sharedHexagonData.getRadius() * cos(angle);
             double y = centerY + sharedHexagonData.getRadius() * sin(angle);
-            points[i] = new Point(x, y);
+            points[i] = new HexagonPoint(x, y);
         }
         return points;
     }

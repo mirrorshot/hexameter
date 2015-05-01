@@ -11,11 +11,11 @@ import java.io.Serializable;
 public interface Hexagon extends Serializable {
 
     /**
-     * Returns an array containing the {@link Point}s of this {@link Hexagon}.
+     * Returns an array containing the {@link HexagonPoint}s of this {@link Hexagon}.
      *
      * @return points array
      */
-    Point[] getPoints();
+    HexagonPoint[] getHexagonPoints();
 
     /**
      * Returns this {@link Hexagon}'s <b>x</b> coordinate on the {@link HexagonalGrid}.

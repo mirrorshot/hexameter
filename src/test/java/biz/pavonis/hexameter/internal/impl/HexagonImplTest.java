@@ -5,7 +5,7 @@ import static junit.framework.Assert.assertEquals;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
-import biz.pavonis.hexameter.api.Point;
+import biz.pavonis.hexameter.api.HexagonPoint;
 import biz.pavonis.hexameter.internal.SharedHexagonData;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,10 +23,10 @@ public class HexagonImplTest {
     private static final int EXPECTED_FLAT_CENTER_X = 40;
     private static final int EXPECTED_POINTY_CENTER_Y = 55;
     private static final int EXPECTED_FLAT_CENTER_Y = 78;
-    private static final Point[] EXPECTED_FLAT_POINTS = new Point[]{new Point(50, 78), new Point(45, 87), new Point(35, 87), new Point(30, 78), new Point(35, 69),
-        new Point(45, 69)};
-    private static final Point[] EXPECTED_POINTY_POINTS = new Point[]{new Point(78, 60), new Point(69, 65), new Point(61, 60), new Point(61, 50), new Point(69, 45),
-        new Point(78, 50)};
+    private static final HexagonPoint[] EXPECTED_FLAT_POINTS = new HexagonPoint[]{new HexagonPoint(50, 78), new HexagonPoint(45, 87), new HexagonPoint(35, 87), new HexagonPoint(30, 78), new HexagonPoint(35, 69),
+        new HexagonPoint(45, 69)};
+    private static final HexagonPoint[] EXPECTED_POINTY_POINTS = new HexagonPoint[]{new HexagonPoint(78, 60), new HexagonPoint(69, 65), new HexagonPoint(61, 60), new HexagonPoint(61, 50), new HexagonPoint(69, 45),
+        new HexagonPoint(78, 50)};
 
     private Hexagon target;
 
@@ -38,8 +38,8 @@ public class HexagonImplTest {
     @Test
     public void testGetPointsPointy() {
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getX(), (int) round(target.getHexagonPoints()[i].getX()));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getY(), (int) round(target.getHexagonPoints()[i].getY()));
         }
     }
 
@@ -47,8 +47,8 @@ public class HexagonImplTest {
     public void testGetPointsFlat() {
         target = new HexagonImpl(TEST_FLAT_DATA, TEST_GRID_X, TEST_GRID_Z);
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getX(), (int) round(target.getHexagonPoints()[i].getX()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getY(), (int) round(target.getHexagonPoints()[i].getY()));
         }
     }
 

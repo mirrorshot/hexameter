@@ -12,7 +12,7 @@ import java.util.Set;
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
-import biz.pavonis.hexameter.api.Point;
+import biz.pavonis.hexameter.api.HexagonPoint;
 import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
 import biz.pavonis.hexameter.internal.SharedHexagonData;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
@@ -186,10 +186,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     */
    private Hexagon refineHexagonByPixel(Hexagon hexagon, double x, double y) {
         Hexagon refined = hexagon;
-        Point clickedPoint = new Point(x, y);
-        double smallestDistance = Point.distance(clickedPoint, new Point(refined.getCenterX(), refined.getCenterY()));
+        HexagonPoint clickedPoint = new HexagonPoint(x, y);
+        double smallestDistance = HexagonPoint.distance(clickedPoint, new HexagonPoint(refined.getCenterX(), refined.getCenterY()));
         for (Hexagon neighbor : getNeighborsOf(hexagon)) {
-            double currentDistance = Point.distance(clickedPoint, new Point(
+            double currentDistance = HexagonPoint.distance(clickedPoint, new HexagonPoint(
                 neighbor.getCenterX(), neighbor.getCenterY()));
             if (currentDistance < smallestDistance) {
                 refined = neighbor;
