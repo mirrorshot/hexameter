@@ -135,7 +135,7 @@ public final class HexagonalGridBuilder {
      * 
      * @return {@link HexagonalGrid}
      */
-    public HexagonalGrid build() {
+    public HexagonalGrid build() throws HexagonalGridCreationException{
         checkParameters();
         return new HexagonalGridImpl(this);
     }
@@ -150,7 +150,7 @@ public final class HexagonalGridBuilder {
         return new HexagonalGridCalculatorImpl(hexagonalGrid);
     }
 
-    private void checkParameters() {
+    private void checkParameters() throws HexagonalGridCreationException{
         if (orientation == null) {
             throw new HexagonalGridCreationException("Orientation must be set.");
         }
