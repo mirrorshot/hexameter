@@ -21,6 +21,7 @@ public class HexagonImpl implements Hexagon {
     private final int gridX;
     private final int gridZ;
     private AtomicReference<Object> satelliteData;
+    private boolean visited;
     private boolean obstacle;
 
     public HexagonImpl(SharedHexagonData sharedHexagonData, int gridX, int gridZ) {
@@ -94,8 +95,24 @@ public class HexagonImpl implements Hexagon {
         return centerY;
     }
     
-    public void becomeObstacle(boolean obstacle){
-       this.obstacle = obstacle;
+    public void visit(){
+       visited = true;
+    }
+    
+    public void clearVisit(){
+       visited = false;
+    }
+    
+    public boolean isVisited(){
+       return visited;
+    }
+    
+    public void fromNowObstacle(){
+       obstacle = true;
+    }
+    
+    public void noMoreObstacle(){
+       obstacle = false;
     }
     
     public boolean isObstacle(){
