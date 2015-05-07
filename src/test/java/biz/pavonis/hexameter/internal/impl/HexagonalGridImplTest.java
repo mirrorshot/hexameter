@@ -19,6 +19,7 @@ import biz.pavonis.hexameter.api.HexagonOrientation;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
+import biz.pavonis.hexameter.api.exception.HexagonalGridCreationException;
 
 public class HexagonalGridImplTest {
 
@@ -43,7 +44,12 @@ public class HexagonalGridImplTest {
 	public void testHexagonalGridImplWithCustomStorage() {
 		Map<String, Hexagon> expected = new HashMap<String, Hexagon>();
 		builder.setStorage(expected);
-		target = builder.build();
+		try{
+		   target = builder.build();
+		}
+		catch(HexagonalGridCreationException hgce){
+		   hgce.printStackTrace();
+		}
 		assertEquals(expected, target.getHexagons());
 	}
 

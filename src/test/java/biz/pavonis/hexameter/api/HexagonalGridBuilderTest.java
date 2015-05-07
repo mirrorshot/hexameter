@@ -54,25 +54,25 @@ public class HexagonalGridBuilderTest {
     }
 
     @Test(expected = HexagonalGridCreationException.class)
-    public void testFailedWhenNoOrientation() {
+    public void testFailedWhenNoOrientation() throws HexagonalGridCreationException{
         target.setOrientation(null);
         target.build();
     }
 
     @Test(expected = HexagonalGridCreationException.class)
-    public void testFailedWhenNoRadius() {
+    public void testFailedWhenNoRadius() throws HexagonalGridCreationException{
         target.setRadius(0);
         target.build();
     }
 
     @Test(expected = HexagonalGridCreationException.class)
-    public void testFailedWhenNoLayout() {
+    public void testFailedWhenNoLayout() throws HexagonalGridCreationException{
         target.setGridLayout(null);
         target.build();
     }
 
     @Test(expected = HexagonalGridCreationException.class)
-    public void testFailedWhenBadLayout() {
+    public void testFailedWhenBadLayout() throws HexagonalGridCreationException{
         target.setGridLayout(HexagonalGridLayout.TRIANGULAR);
         target.setGridHeight(4);
         target.build();
@@ -108,7 +108,13 @@ public class HexagonalGridBuilderTest {
 
     @Test
     public void testBuild() {
-        HexagonalGrid grid = target.build();
+        HexagonalGrid grid = null;
+        try{
+           grid = target.build();
+        }
+        catch(HexagonalGridCreationException hgce){
+           hgce.printStackTrace();
+        }
         assertNotNull(grid);
     }
 
