@@ -51,31 +51,41 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
         }
         return ret;
     }
-   
+
    /**
     * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateObstacleMovementRangeFrom(biz.pavonis.hexameter.api.Hexagon, int)
     */
    public Set<Hexagon> calculateObstacleMovementRangeFrom(Hexagon hexagon, int distance){
+      Set<Hexagon> reach;
+      reach = calculateObstacleMovementRangeFromImpl(hexagon,distance);
+      for(Hexagon h : reach)
+         h.clearVisit();
+      return reach;
+   }
+   
+   /**
+    * Recursive implementation for calculateObstacleMovementRangeFrom
+    * 
+    * @param hexagon to start from
+    * @param distance to reach
+    * @return set of hexagons in the distance range
+    */
+   public Set<Hexagon> calculateObstacleMovementRangeFromImpl(Hexagon hexagon, int distance){
       Set<Hexagon> reach = new HashSet<Hexagon>();
+      if(hexagon.isVisited())
+         return reach;
       reach.add(hexagon);
+      hexagon.visit();
       if(distance == 0)
       	return reach;
-      else {
-    	 Set<Hexagon> local = calculateMovementRangeFrom(hexagon,1);
-    	 local = hexagonalGrid.getNeighborsOf(hexagon);
-         for(Hexagon step : local){
-            if(!step.isObstacle()){
-               reach.add(step);
-               reach.addAll(calculateObstacleMovementRangeFrom(step, distance - 1));
-            }
+      Set<Hexagon> local = calculateMovementRangeFrom(hexagon,1);
+      for(Hexagon step : local){
+         if(!step.isObstacle() && !step.isVisited()){
+            reach.add(step);
+            reach.addAll(calculateObstacleMovementRangeFromImpl(step, distance - 1));
          }
       }
-      Set<Hexagon> clean = new HashSet<Hexagon>();
-      for(Hexagon hex : reach){
-         if(!clean.contains(hex))
-            clean.add(hex);
-      }
-      return clean;
+      return reach;
    }
    
 }
