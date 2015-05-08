@@ -2,6 +2,8 @@ package biz.pavonis.hexameter.api;
 
 import java.util.Set;
 
+import biz.pavonis.hexameter.api.exception.HexagonNotReachableException;
+
 /**
  * Supports common operations on a {@link HexagonalGrid}.
  * Operations supported:
@@ -35,7 +37,8 @@ public interface HexagonalGridCalculator {
      * @param hex1
      * @return distance
      */
-    int calculateObstacleDistanceBetween(Hexagon hex0, Hexagon hex1);
+    int calculateObstacleDistanceBetween(Hexagon hex0, Hexagon hex1)
+       throws HexagonNotReachableException;
 
     /**
      * Returns all {@link Hexagon}s which are within distance (inclusive) from the {@link Hexagon}.

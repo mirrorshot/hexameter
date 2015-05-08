@@ -35,6 +35,7 @@ Pull reqeusts are also welcome!*
 ### Roadmap:
  - Field of view calculation with obstacles
  - Movement range with obstacles
+ - Swing JPanel extension component
  
 ## License
 Hexameter is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).

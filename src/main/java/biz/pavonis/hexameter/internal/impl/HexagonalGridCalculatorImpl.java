@@ -4,19 +4,26 @@ import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridCalculator;
+import biz.pavonis.hexameter.api.exception.HexagonNotReachableException;
 
 public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 
-    private final HexagonalGrid hexagonalGrid;
+    protected final HexagonalGrid hexagonalGrid;
+    protected Logger logger;
 
     public HexagonalGridCalculatorImpl(HexagonalGrid hexagonalGrid) {
         this.hexagonalGrid = hexagonalGrid;
+        logger = Logger.getLogger("HexagonalGridCalculator");
     }
 
     /**
@@ -32,10 +39,53 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
    /**
     * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateObstacleDistanceBetween(biz.pavonis.hexameter.api.Hexagon, biz.pavonis.hexameter.api.Hexagon)
     */
-   public int calculateObstacleDistanceBetween(Hexagon hex0, Hexagon hex1){
-      int distance = 0;
+   public int calculateObstacleDistanceBetween(Hexagon hex0, Hexagon hex1)
+      throws HexagonNotReachableException{
       //TODO
+      int distance;
+      //distance = calculateObstacleDistanceBetweenImpl(hex0, hex1, new ArrayList<Hexagon>()).size();
+      distance = 0;
       return distance;
+   }
+   
+   /**
+    * Recursive implementation for calculateObstacleDistanceBetween
+    * 
+    * @param hex0 start hexagon
+    * @param hex1 end hexagon
+    * @return distance
+    */
+   public List<Hexagon> calculateObstacleDistanceBetweenImpl(Hexagon hex0, Hexagon hex1, ArrayList<Hexagon> path)
+      throws HexagonNotReachableException{
+      //TODO
+      if(hex0.equals(hex1))
+         return path;
+      int distance = Integer.MAX_VALUE;
+      hex0.visit();
+      path.add(hex0);
+      List<Hexagon> minPath = null;
+      Set<Hexagon> near = calculateMovementRangeFrom(hex0,1);
+      int notAvalible = 0;
+      for(Hexagon hex : near){
+         if(!hex.isObstacle() && !hex.isVisited()){
+            try{
+               List<Hexagon> locPath = calculateObstacleDistanceBetweenImpl(hex, hex1,(ArrayList<Hexagon>) path.clone());
+               if(locPath.size() < distance){
+                  distance = locPath.size();
+                  minPath = locPath;
+               }
+            }
+            catch(HexagonNotReachableException hnre){
+               notAvalible++;
+               logger.log(Level.INFO, "Blind path", hnre);
+            }
+         }
+         else
+            notAvalible++;
+      }
+      if(notAvalible == near.size())
+         throw new HexagonNotReachableException("End of path");
+      return minPath;
    }
    
     /**
