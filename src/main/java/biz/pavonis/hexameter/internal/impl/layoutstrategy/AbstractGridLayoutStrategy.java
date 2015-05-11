@@ -2,11 +2,12 @@ package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
 import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
 
+import java.util.Map;
+
 import biz.pavonis.hexameter.api.AxialCoordinate;
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.internal.impl.HexagonImpl;
-import java.util.Map;
 
 public abstract class AbstractGridLayoutStrategy implements GridLayoutStrategy {
    

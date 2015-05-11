@@ -4,6 +4,7 @@ import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.api.HexagonalGridCalculator;
 import biz.pavonis.hexameter.api.exception.HexagonalGridCreationException;
+import biz.pavonis.hexameter.internal.impl.HexagonalGridBuilderImpl;
 import biz.pavonis.hexameter.internal.impl.HexagonalGridCalculatorImpl;
 
 
@@ -19,7 +20,7 @@ public class HexameterGridPanel {
    public static final long serialVersionUID = 1L;
    
    public HexameterGridPanel(){
-      builder = new HexagonalGridBuilder();
+      builder = new HexagonalGridBuilderImpl();
    }
    
    public HexameterGridPanel(HexagonalGridBuilder builder){

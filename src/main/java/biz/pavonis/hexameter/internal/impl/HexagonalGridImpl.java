@@ -11,8 +11,8 @@ import java.util.Set;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
-import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.api.HexagonPoint;
+import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
 import biz.pavonis.hexameter.internal.SharedHexagonData;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
@@ -50,7 +50,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     * @see biz.pavonis.hexameter.api.HexagonalGrid#getHexagonsByAxialRange(int, int, int, int)
     */
    public Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom,
-        int gridXTo, int gridZFrom, int gridZTo) {
+        int gridXTo, int gridZFrom, int gridZTo) 
+              throws HexagonNotFoundException {
         Map<String, Hexagon> range = new HashMap<String, Hexagon>();
         for (int gridZ = gridZFrom; gridZ <= gridZTo; gridZ++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
@@ -65,7 +66,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     * @see biz.pavonis.hexameter.api.HexagonalGrid#getHexagonsByOffsetRange(int, int, int, int)
     */
    public Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom,
-        int gridXTo, int gridYFrom, int gridYTo) {
+        int gridXTo, int gridYFrom, int gridYTo) 
+              throws HexagonNotFoundException {
         Map<String, Hexagon> range = new HashMap<String, Hexagon>();
         for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
@@ -92,7 +94,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     /**
     * @see biz.pavonis.hexameter.api.HexagonalGrid#removeHexagon(int, int)
     */
-   public Hexagon removeHexagon(int gridX, int gridZ) {
+   public Hexagon removeHexagon(int gridX, int gridZ) 
+         throws HexagonNotFoundException{
         checkCoordinate(gridX, gridZ);
         return hexagonStorage.remove(createKeyFromCoordinate(gridX, gridZ));
     }
@@ -108,7 +111,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     /**
     * @see biz.pavonis.hexameter.api.HexagonalGrid#getByGridCoordinate(int, int)
     */
-   public Hexagon getByGridCoordinate(int gridX, int gridZ) {
+   public Hexagon getByGridCoordinate(int gridX, int gridZ) 
+         throws HexagonNotFoundException{
         checkCoordinate(gridX, gridZ);
         return hexagonStorage.get(createKeyFromCoordinate(gridX, gridZ));
     }
@@ -119,7 +123,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     * @param gridX
     * @param gridZ
     */
-   private void checkCoordinate(int gridX, int gridZ) {
+   private void checkCoordinate(int gridX, int gridZ) 
+         throws HexagonNotFoundException{
         if (!containsCoordinate(gridX, gridZ)) {
             throw new HexagonNotFoundException("Coordinates are off the grid: (x=" + gridX + ",z=" + gridZ + ")");
         }
@@ -128,7 +133,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     /**
     * @see biz.pavonis.hexameter.api.HexagonalGrid#getByPixelCoordinate(double, double)
     */
-   public Hexagon getByPixelCoordinate(double x, double y) {
+   public Hexagon getByPixelCoordinate(double x, double y) 
+         throws HexagonNotFoundException {
         int estimatedGridX = (int) (x / sharedHexagonData.getWidth());
         int estimatedGridZ = (int) (y / sharedHexagonData.getHeight());
         estimatedGridX = convertOffsetCoordinatesToAxialX(estimatedGridX,
@@ -157,8 +163,13 @@ public final class HexagonalGridImpl implements HexagonalGrid {
             int neighborGridX = hexagon.getGridX() + neighbor[NEIGHBOR_X_INDEX];
             int neighborGridZ = hexagon.getGridZ() + neighbor[NEIGHBOR_Z_INDEX];
             if (containsCoordinate(neighborGridX, neighborGridZ)) {
+               try{
                 retHex = getByGridCoordinate(neighborGridX, neighborGridZ);
                 neighbors.add(retHex);
+               }
+               catch(HexagonNotFoundException hnfe){
+                  //cannot go out of the border, but no need to stop execution
+               }
             }
         }
         return neighbors;

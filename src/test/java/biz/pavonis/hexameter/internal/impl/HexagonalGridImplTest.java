@@ -17,7 +17,6 @@ import biz.pavonis.hexameter.api.CoordinateConverter;
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
 import biz.pavonis.hexameter.api.HexagonalGrid;
-import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
 import biz.pavonis.hexameter.api.exception.HexagonalGridCreationException;
 
@@ -32,11 +31,12 @@ public class HexagonalGridImplTest {
 	private static final int GRID_Z_FROM = 3;
 	private static final int GRID_Z_TO = 5;
 	private HexagonalGrid target;
-	private HexagonalGridBuilder builder;
+	private HexagonalGridBuilderImpl builder;
 
 	@Before
 	public void setUp() throws Exception {
-		builder = new HexagonalGridBuilder().setGridHeight(GRID_HEIGHT).setGridWidth(GRID_WIDTH).setRadius(RADIUS).setOrientation(ORIENTATION);
+		builder = new HexagonalGridBuilderImpl();
+		builder.setGridHeight(GRID_HEIGHT).setGridWidth(GRID_WIDTH).setRadius(RADIUS).setOrientation(ORIENTATION);
 		target = builder.build();
 	}
 
@@ -72,52 +72,62 @@ public class HexagonalGridImplTest {
 
 	@Test
 	public void testGetHexagonsByAxialRange() {
-		Set<Hexagon> expected = new HashSet<Hexagon>();
-
-		expected.add(target.getByGridCoordinate(2, 3));
-		expected.add(target.getByGridCoordinate(3, 3));
-		expected.add(target.getByGridCoordinate(4, 3));
-
-		expected.add(target.getByGridCoordinate(2, 4));
-		expected.add(target.getByGridCoordinate(3, 4));
-		expected.add(target.getByGridCoordinate(4, 4));
-
-		expected.add(target.getByGridCoordinate(2, 5));
-		expected.add(target.getByGridCoordinate(3, 5));
-		expected.add(target.getByGridCoordinate(4, 5));
-
-		Map<String, Hexagon> actual = target.getHexagonsByAxialRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
-		assertEquals(expected.size(), actual.size());
-		for (Hexagon hex : expected) {
-			String key = CoordinateConverter.createKeyFromCoordinate(hex.getGridX(), hex.getGridZ());
-			assertTrue(actual.containsKey(key));
-			assertEquals(hex, actual.get(key));
-		}
+	   try{
+   		Set<Hexagon> expected = new HashSet<Hexagon>();
+   
+   		expected.add(target.getByGridCoordinate(2, 3));
+   		expected.add(target.getByGridCoordinate(3, 3));
+   		expected.add(target.getByGridCoordinate(4, 3));
+   
+   		expected.add(target.getByGridCoordinate(2, 4));
+   		expected.add(target.getByGridCoordinate(3, 4));
+   		expected.add(target.getByGridCoordinate(4, 4));
+   
+   		expected.add(target.getByGridCoordinate(2, 5));
+   		expected.add(target.getByGridCoordinate(3, 5));
+   		expected.add(target.getByGridCoordinate(4, 5));
+   
+   		Map<String, Hexagon> actual = target.getHexagonsByAxialRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
+   		assertEquals(expected.size(), actual.size());
+   		for (Hexagon hex : expected) {
+   			String key = CoordinateConverter.createKeyFromCoordinate(hex.getGridX(), hex.getGridZ());
+   			assertTrue(actual.containsKey(key));
+   			assertEquals(hex, actual.get(key));
+   		}
+	   }
+	   catch(HexagonNotFoundException hnfe){
+	      
+	   }
 	}
 
 	@Test
 	public void testGetHexagonsByOffsetRange() {
-		Set<Hexagon> expected = new HashSet<Hexagon>();
-
-		expected.add(target.getByGridCoordinate(1, 3));
-		expected.add(target.getByGridCoordinate(2, 3));
-		expected.add(target.getByGridCoordinate(3, 3));
-
-		expected.add(target.getByGridCoordinate(0, 4));
-		expected.add(target.getByGridCoordinate(1, 4));
-		expected.add(target.getByGridCoordinate(2, 4));
-
-		expected.add(target.getByGridCoordinate(0, 5));
-		expected.add(target.getByGridCoordinate(1, 5));
-		expected.add(target.getByGridCoordinate(2, 5));
-
-		Map<String, Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
-		assertEquals(expected.size(), actual.size());
-		for (Hexagon hex : expected) {
-			String key = CoordinateConverter.createKeyFromCoordinate(hex.getGridX(), hex.getGridZ());
-			assertTrue(actual.containsKey(key));
-			assertEquals(hex, actual.get(key));
-		}
+	   try{
+   	   Set<Hexagon> expected = new HashSet<Hexagon>();
+   
+   		expected.add(target.getByGridCoordinate(1, 3));
+   		expected.add(target.getByGridCoordinate(2, 3));
+   		expected.add(target.getByGridCoordinate(3, 3));
+   
+   		expected.add(target.getByGridCoordinate(0, 4));
+   		expected.add(target.getByGridCoordinate(1, 4));
+   		expected.add(target.getByGridCoordinate(2, 4));
+   
+   		expected.add(target.getByGridCoordinate(0, 5));
+   		expected.add(target.getByGridCoordinate(1, 5));
+   		expected.add(target.getByGridCoordinate(2, 5));
+   
+   		Map<String, Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
+   		assertEquals(expected.size(), actual.size());
+   		for (Hexagon hex : expected) {
+   			String key = CoordinateConverter.createKeyFromCoordinate(hex.getGridX(), hex.getGridZ());
+   			assertTrue(actual.containsKey(key));
+   			assertEquals(hex, actual.get(key));
+   		}
+	   }
+	   catch(HexagonNotFoundException hnfe){
+	      
+	   }
 	}
 
 	@Test
@@ -134,8 +144,13 @@ public class HexagonalGridImplTest {
 		int gridX = 2;
 		int gridZ = 3;
 		assertTrue(target.containsCoordinate(gridX, gridZ));
-		target.removeHexagon(gridX, gridZ);
-		assertFalse(target.containsCoordinate(gridX, gridZ));
+		try{
+		   target.removeHexagon(gridX, gridZ);
+		   assertFalse(target.containsCoordinate(gridX, gridZ));
+		}
+		catch(HexagonNotFoundException hnfe){
+		   
+		}
 	}
 
 	@Test
@@ -149,74 +164,109 @@ public class HexagonalGridImplTest {
 	public void testGetByGridCoordinateWhichIsValid() {
 		int gridX = 2;
 		int gridZ = 3;
-		Hexagon hex = target.getByGridCoordinate(gridX, gridZ);
-		assertNotNull(hex);
+		try{
+   		Hexagon hex = target.getByGridCoordinate(gridX, gridZ);
+   		assertNotNull(hex);
+		}
+		catch(HexagonNotFoundException hnfe){
+		   
+		}
 	}
 
 	@Test(expected = HexagonNotFoundException.class)
-	public void testGetByGridCoordinateWhichIsInvalid() {
+	public void testGetByGridCoordinateWhichIsInvalid() throws HexagonNotFoundException {
 		int gridX = 20;
 		int gridZ = 30;
-		target.getByGridCoordinate(gridX, gridZ);
+	   target.getByGridCoordinate(gridX, gridZ);
 	}
 
 	@Test
 	public void testGetByPixelCoordinateWithGoodEstimation() {
 		double x = 310;
 		double y = 255;
-		Hexagon hex = target.getByPixelCoordinate(x, y);
-		assertTrue(hex.getGridX() == 3);
-		assertTrue(hex.getGridZ() == 5);
+		try{
+   		Hexagon hex = target.getByPixelCoordinate(x, y);
+   		assertTrue(hex.getGridX() == 3);
+   		assertTrue(hex.getGridZ() == 5);
+		}
+		catch(HexagonNotFoundException hnfe){
+		   
+		}
 	}
 
 	@Test
 	public void testGetByPixelCoordinateWithBadEstimation1() {
 		double x = 300;
 		double y = 275;
-		Hexagon hex = target.getByPixelCoordinate(x, y);
-		assertTrue(hex.getGridX() == 3);
-		assertTrue(hex.getGridZ() == 5);
+		try{
+   		Hexagon hex = target.getByPixelCoordinate(x, y);
+   		assertTrue(hex.getGridX() == 3);
+   		assertTrue(hex.getGridZ() == 5);
+		}
+      catch(HexagonNotFoundException hnfe){
+         
+      }
 	}
 
 	@Test
 	public void testGetByPixelCoordinateWithBadEstimation2() {
 		double x = 325;
 		double y = 275;
-		Hexagon hex = target.getByPixelCoordinate(x, y);
-		assertTrue(hex.getGridX() == 3);
-		assertTrue(hex.getGridZ() == 5);
+		try{
+   		Hexagon hex = target.getByPixelCoordinate(x, y);
+   		assertTrue(hex.getGridX() == 3);
+   		assertTrue(hex.getGridZ() == 5);
+		}
+      catch(HexagonNotFoundException hnfe){
+         
+      }
 	}
 
 	@Test
 	public void testGetNeighborsOfFromMiddle() {
-		Hexagon hex = target.getByGridCoordinate(3, 7);
-		Set<Hexagon> expected = new HashSet<Hexagon>();
-		expected.add(target.getByGridCoordinate(3, 6));
-		expected.add(target.getByGridCoordinate(4, 6));
-		expected.add(target.getByGridCoordinate(4, 7));
-		expected.add(target.getByGridCoordinate(3, 8));
-		expected.add(target.getByGridCoordinate(2, 8));
-		expected.add(target.getByGridCoordinate(2, 7));
-		Set<Hexagon> actual = target.getNeighborsOf(hex);
-		assertEquals(expected, actual);
+	   try{
+   		Hexagon hex = target.getByGridCoordinate(3, 7);
+   		Set<Hexagon> expected = new HashSet<Hexagon>();
+   		expected.add(target.getByGridCoordinate(3, 6));
+   		expected.add(target.getByGridCoordinate(4, 6));
+   		expected.add(target.getByGridCoordinate(4, 7));
+   		expected.add(target.getByGridCoordinate(3, 8));
+   		expected.add(target.getByGridCoordinate(2, 8));
+   		expected.add(target.getByGridCoordinate(2, 7));
+   		Set<Hexagon> actual = target.getNeighborsOf(hex);
+   		assertEquals(expected, actual);
+	   }
+      catch(HexagonNotFoundException hnfe){
+         
+      }
 	}
 
 	@Test
 	public void testGetNeighborsOfFromEdge() {
-		Hexagon hex = target.getByGridCoordinate(5, 9);
-		Set<Hexagon> expected = new HashSet<Hexagon>();
-		expected.add(target.getByGridCoordinate(5, 8));
-		expected.add(target.getByGridCoordinate(4, 9));
-		Set<Hexagon> actual = target.getNeighborsOf(hex);
-		assertEquals(expected, actual);
+	   try{
+   		Hexagon hex = target.getByGridCoordinate(5, 9);
+   		Set<Hexagon> expected = new HashSet<Hexagon>();
+   		expected.add(target.getByGridCoordinate(5, 8));
+   		expected.add(target.getByGridCoordinate(4, 9));
+   		Set<Hexagon> actual = target.getNeighborsOf(hex);
+   		assertEquals(expected, actual);
+	   }
+      catch(HexagonNotFoundException hnfe){
+         
+      }
 	}
 
 	@Test
 	public void testClearSatelliteData() {
-		Hexagon testHex = target.getByGridCoordinate(2, 3);
-		Object data = new Object();
-		testHex.setSatelliteData(data);
-		target.clearSatelliteData();
-		assertTrue(testHex.getSatelliteData() == null);
+	   try{
+   		Hexagon testHex = target.getByGridCoordinate(2, 3);
+   		Object data = new Object();
+   		testHex.setSatelliteData(data);
+   		target.clearSatelliteData();
+   		assertTrue(testHex.getSatelliteData() == null);
+	   }
+      catch(HexagonNotFoundException hnfe){
+         
+      }
 	}
 }

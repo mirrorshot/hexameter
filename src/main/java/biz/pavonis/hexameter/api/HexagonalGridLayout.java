@@ -56,7 +56,7 @@ public enum HexagonalGridLayout {
      * @param gridWidth
      * @return valid?
      */
-    boolean checkParameters(int gridHeight, int gridWidth) {
+    public boolean checkParameters(int gridHeight, int gridWidth) {
         return getGridLayoutStrategy().checkParameters(gridHeight, gridWidth);
     }
 }

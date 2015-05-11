@@ -1,6 +1,6 @@
 package biz.pavonis.hexameter.api.exception;
 
-public final class HexagonNotFoundException extends RuntimeException {
+public final class HexagonNotFoundException extends Exception {
 
     private static final long serialVersionUID = 2262788570507184567L;
 

@@ -1,16 +1,12 @@
 package biz.pavonis.hexameter.api;
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import biz.pavonis.hexameter.api.exception.HexagonalGridCreationException;
 import biz.pavonis.hexameter.internal.SharedHexagonData;
-import biz.pavonis.hexameter.internal.impl.HexagonalGridCalculatorImpl;
-import biz.pavonis.hexameter.internal.impl.HexagonalGridImpl;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>Builder for a {@link HexagonalGrid}.
@@ -21,18 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * <li>height of the grid</li>
  * <li>radius of a {@link Hexagon}</li>
  * </ul>
- * You only have to care about the setters in this class the getters are
- * for internal purposes.
  */
-public final class HexagonalGridBuilder {
 
-    private int gridWidth;
-    private int gridHeight;
-    private double radius;
-    private Map<String, Hexagon> storage = new ConcurrentHashMap<String, Hexagon>();
-    private List<AxialCoordinate> customCoordinates = new ArrayList<AxialCoordinate>();
-    private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
-    private HexagonalGridLayout gridLayout = HexagonalGridLayout.RECTANGULAR;
+public interface HexagonalGridBuilder {
 
     /**
      * Mandatory parameter. Sets the number of {@link Hexagon}s in the horizontal direction.
@@ -40,21 +27,15 @@ public final class HexagonalGridBuilder {
      * @param gridWidth
      * @return this {@link HexagonalGridBuilder}
      */
-    public HexagonalGridBuilder setGridWidth(int gridWidth) {
-        this.gridWidth = gridWidth;
-        return this;
-    }
-
+    public HexagonalGridBuilder setGridWidth(int gridWidth);
+    
     /**
      * Mandatory parameter. Sets the number of {@link Hexagon}s in the vertical direction.
      * 
      * @param gridHeight
      * @return this {@link HexagonalGridBuilder}
      */
-    public HexagonalGridBuilder setGridHeight(int gridHeight) {
-        this.gridHeight = gridHeight;
-        return this;
-    }
+    public HexagonalGridBuilder setGridHeight(int gridHeight);
 
     /**
      * Sets the {@link HexagonOrientation} used in the resulting {@link HexagonalGrid}.
@@ -63,10 +44,7 @@ public final class HexagonalGridBuilder {
      * @param orientation
      * @return this {@link HexagonalGridBuilder}
      */
-    public HexagonalGridBuilder setOrientation(HexagonOrientation orientation) {
-        this.orientation = orientation;
-        return this;
-    }
+    public HexagonalGridBuilder setOrientation(HexagonOrientation orientation);
 
     /**
      * Sets the radius of the {@link Hexagon}s contained in the resulting {@link HexagonalGrid}.
@@ -74,10 +52,7 @@ public final class HexagonalGridBuilder {
      * @param radius in pixels
      * @return this {@link HexagonalGridBuilder}
      */
-    public HexagonalGridBuilder setRadius(double radius) {
-        this.radius = radius;
-        return this;
-    }
+    public HexagonalGridBuilder setRadius(double radius);
 
     /**
      * Sets the {@link HexagonalGridLayout} which will be used when creating the {@link HexagonalGrid}.
@@ -86,21 +61,15 @@ public final class HexagonalGridBuilder {
      * @param gridLayout
      * @return this {@link HexagonalGridBuilder}.
      */
-    public HexagonalGridBuilder setGridLayout(HexagonalGridLayout gridLayout) {
-        this.gridLayout = gridLayout;
-        return this;
-    }
-
+    public HexagonalGridBuilder setGridLayout(HexagonalGridLayout gridLayout);
+    
     /**
      * Adds a custom coordinate to the {@link HexagonalGrid} which will be produced.
      * 
      * @param axialCoordinate
      * @return this {@link HexagonalGridBuilder}.
      */
-    public HexagonalGridBuilder addCustomAxialCoordinate(AxialCoordinate axialCoordinate) {
-        customCoordinates.add(axialCoordinate);
-        return this;
-    }
+    public HexagonalGridBuilder addCustomAxialCoordinate(AxialCoordinate axialCoordinate);
 
     /**
      * Sets a custom storage object to the {@link HexagonalGrid}. It will be used
@@ -122,10 +91,7 @@ public final class HexagonalGridBuilder {
      * @param customStorage
      * @return this {@link HexagonalGridBuilder}.
      */
-    public HexagonalGridBuilder setStorage(Map<String, Hexagon> customStorage) {
-        this.storage = customStorage;
-        return this;
-    }
+    public HexagonalGridBuilder setStorage(Map<String, Hexagon> customStorage);
 
     /**
      * Builds a {@link HexagonalGrid} using the parameters supplied.
@@ -133,12 +99,11 @@ public final class HexagonalGridBuilder {
      * are filled and/or they are not valid. In both cases you will be supplied with
      * a {@link HexagonalGridCreationException} detailing the cause of failure.
      * 
-     * @return {@link HexagonalGrid}
-     */
-    public HexagonalGrid build() throws HexagonalGridCreationException{
-        checkParameters();
-        return new HexagonalGridImpl(this);
-    }
+     * @return {@link HexagonalGrid} from this builder parameters
+     * @throws HexagonalGridCreationException
+    */
+   public HexagonalGrid build() 
+          throws HexagonalGridCreationException;
 
     /**
      * Creates a {@link HexagonalGridCalculator} for your {@link HexagonalGrid}.
@@ -146,62 +111,47 @@ public final class HexagonalGridBuilder {
      * @param hexagonalGrid
      * @return calculator
      */
-    public HexagonalGridCalculator buildCalculatorFor(HexagonalGrid hexagonalGrid) {
-        return new HexagonalGridCalculatorImpl(hexagonalGrid);
-    }
-
-    private void checkParameters() throws HexagonalGridCreationException{
-        if (orientation == null) {
-            throw new HexagonalGridCreationException("Orientation must be set.");
-        }
-        if (radius <= 0) {
-            throw new HexagonalGridCreationException("Radius must be greater than 0.");
-        }
-        if (gridLayout == null) {
-            throw new HexagonalGridCreationException("Grid layout must be set.");
-        }
-        if (!gridLayout.checkParameters(gridHeight, gridWidth)) {
-            throw new HexagonalGridCreationException("Width: " + gridWidth + " and height: " + gridHeight + " is not valid for: " + gridLayout.name() + " layout.");
-        }
-    }
-
-    public double getRadius() {
-        return radius;
-    }
-
-    public int getGridWidth() {
-        return gridWidth;
-    }
-
-    public int getGridHeight() {
-        return gridHeight;
-    }
-
-    public HexagonOrientation getOrientation() {
-        return orientation;
-    }
-
-    public GridLayoutStrategy getGridLayoutStrategy() {
-        return gridLayout.getGridLayoutStrategy();
-    }
-
-    public List<AxialCoordinate> getCustomCoordinates() {
-        return customCoordinates;
-    }
-
-    public Map<String, Hexagon> getStorage() {
-        return storage;
-    }
+    public HexagonalGridCalculator buildCalculatorFor(HexagonalGrid hexagonalGrid);
 
     /**
-    * @return SharedHexagonData for the builder
+    * @return {@link GridLayoutStrategy} for the builder
     */
-   public SharedHexagonData getSharedHexagonData() {
-        Float zero = new Float(0.0);
-        if (orientation == null || zero.equals(new Float(radius))) {
-            throw new IllegalStateException("orientation or radius is not yet initialized");
-        }
-        return new SharedHexagonData(orientation, radius);
-    }
+   public GridLayoutStrategy getGridLayoutStrategy();
+   
 
+   /**
+    * @return {@link List} of custom {@link AxialCoordinate} from this builder 
+    */
+   public List<AxialCoordinate> getCustomCoordinates();
+
+    /**
+    * @return the storage given in the setup of the builder
+    */
+   public Map<String, Hexagon> getStorage();
+
+    /**
+    * @return {@link SharedHexagonData} for the builder
+    */
+   public SharedHexagonData getSharedHexagonData();
+   
+   /**
+    * @return
+    */
+   public double getRadius();
+
+   /**
+    * @return
+    */
+   public int getGridWidth();
+
+   /**
+    * @return
+    */
+   public int getGridHeight();
+
+   /**
+    * @return
+    */
+   public HexagonOrientation getOrientation();
+   
 }

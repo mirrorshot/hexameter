@@ -8,11 +8,13 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
-import biz.pavonis.hexameter.api.Hexagon;
-import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import biz.pavonis.hexameter.api.Hexagon;
+import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 
 public class HexagonalGridLayoutStrategyTest {
 

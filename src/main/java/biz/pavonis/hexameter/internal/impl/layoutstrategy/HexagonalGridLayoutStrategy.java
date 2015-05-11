@@ -6,13 +6,14 @@ import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.internal.impl.HexagonImpl;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a hexagonal

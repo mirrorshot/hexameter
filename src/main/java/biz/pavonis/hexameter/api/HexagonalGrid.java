@@ -1,8 +1,9 @@
 package biz.pavonis.hexameter.api;
 
-import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
 import java.util.Map;
 import java.util.Set;
+
+import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
 
 /**
  * <p>
@@ -41,7 +42,8 @@ public interface HexagonalGrid {
      * @param gridZTo to z inclusive
      * @return {@link Hexagon}s in the given range.
      */
-    Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom, int gridXTo, int gridZfrom, int gridZTo);
+    Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom, int gridXTo, int gridZfrom, int gridZTo) 
+          throws HexagonNotFoundException;
 
     /**
      * Returns all {@link Hexagon}s contained in the given offset coordinate range.
@@ -52,7 +54,8 @@ public interface HexagonalGrid {
      * @param gridYTo to z inclusive
      * @return {@link Hexagon}s in the given range.
      */
-    Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
+    Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo) 
+          throws HexagonNotFoundException;
 
     /**
      * Adds a new {@link Hexagon} at the given coordinates.
@@ -70,7 +73,8 @@ public interface HexagonalGrid {
      * @param gridZ
      * @return {@link Map#remove(Object)}
      */
-    Hexagon removeHexagon(int gridX, int gridZ);
+    Hexagon removeHexagon(int gridX, int gridZ) 
+          throws HexagonNotFoundException;
 
     /**
      * Tells whether the given axial coordinate is on the grid or not.
@@ -82,15 +86,17 @@ public interface HexagonalGrid {
      */
     boolean containsCoordinate(int gridX, int gridZ);
 
-    /**
-     * Fetches a {@link Hexagon} by its grid coordinate. If no {@link Hexagon} found at the given location it throws a
-     * {@link HexagonNotFoundException}.
-     *
-     * @param gridX grid x coordinate
-     * @param gridZ grid z coordinate
-     * @return {@link Hexagon}
-     */
-    Hexagon getByGridCoordinate(int gridX, int gridZ);
+   /**
+    * Fetches a {@link Hexagon} by its grid coordinate. If no {@link Hexagon} found at the given location it throws a
+    * {@link HexagonNotFoundException}.
+    *
+    * @param gridX grid x coordinate
+    * @param gridZ grid z coordinate
+    * @return {@link Hexagon}
+    * @throws HexagonNotFoundException
+   */
+   Hexagon getByGridCoordinate(int gridX, int gridZ)
+         throws HexagonNotFoundException;
 
     /**
      * Returns a {@link Hexagon} by a pixel coordinate. Throws {@link HexagonNotFoundException} if there were no
@@ -102,7 +108,8 @@ public interface HexagonalGrid {
      * @param y pixel y coordinate
      * @return {@link Hexagon}
      */
-    Hexagon getByPixelCoordinate(double x, double y);
+    Hexagon getByPixelCoordinate(double x, double y) 
+          throws HexagonNotFoundException;
 
     /**
      * Returns all neighbors of a {@link Hexagon}.
@@ -116,4 +123,5 @@ public interface HexagonalGrid {
      * Clears all satellite data attached to the {@link Hexagon}s in this grid.
      */
     void clearSatelliteData();
+
 }

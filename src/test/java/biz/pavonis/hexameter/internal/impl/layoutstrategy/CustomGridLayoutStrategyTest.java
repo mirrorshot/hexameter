@@ -2,12 +2,15 @@ package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
 import static junit.framework.Assert.assertTrue;
 
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
-import java.util.Map;
-import org.junit.Before;
-import org.junit.Test;
+import biz.pavonis.hexameter.internal.impl.HexagonalGridBuilderImpl;
 
 public class CustomGridLayoutStrategyTest {
 
@@ -21,7 +24,8 @@ public class CustomGridLayoutStrategyTest {
 
     @Before
     public void setUp() throws Exception {
-        builder = new HexagonalGridBuilder().setGridHeight(GRID_HEIGHT).setGridWidth(GRID_WIDTH).setRadius(RADIUS).setOrientation(ORIENTATION);
+        builder = new HexagonalGridBuilderImpl();
+        builder.setGridHeight(GRID_HEIGHT).setGridWidth(GRID_WIDTH).setRadius(RADIUS).setOrientation(ORIENTATION);
         target = new CustomGridLayoutStrategy();
     }
 

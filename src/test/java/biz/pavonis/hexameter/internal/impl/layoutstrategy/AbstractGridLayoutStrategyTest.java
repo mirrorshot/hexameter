@@ -5,14 +5,16 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import biz.pavonis.hexameter.api.AxialCoordinate;
 import biz.pavonis.hexameter.api.CoordinateConverter;
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
-import java.util.HashMap;
-import java.util.Map;
-import org.junit.Before;
-import org.junit.Test;
 
 public class AbstractGridLayoutStrategyTest {
 

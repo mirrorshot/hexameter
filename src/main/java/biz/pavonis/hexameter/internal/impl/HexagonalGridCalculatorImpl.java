@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridCalculator;
+import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
 import biz.pavonis.hexameter.api.exception.HexagonNotReachableException;
 
 public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
@@ -96,7 +97,12 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
         for (int x = -distance; x <= distance; x++) {
             for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
                 int z = -x - y;
-                ret.add(hexagonalGrid.getByGridCoordinate(hexagon.getGridX() + x, hexagon.getGridZ() + z));
+                try{
+                   ret.add(hexagonalGrid.getByGridCoordinate(hexagon.getGridX() + x, hexagon.getGridZ() + z));
+                }
+                catch(HexagonNotFoundException hnfe){
+                   //cannot go outside borders
+                }
             }
         }
         return ret;
