@@ -127,15 +127,15 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
     */
    public Set<Hexagon> calculateObstacleMovementRangeFromImpl(Hexagon hexagon, int distance){
       Set<Hexagon> reach = new HashSet<Hexagon>();
-      if(hexagon.isVisited())
-         return reach;
+      //if(hexagon.isVisited())
+      //   return reach;
       reach.add(hexagon);
-      hexagon.visit();
+      //hexagon.visit();
       if(distance == 0)
       	return reach;
       Set<Hexagon> local = calculateMovementRangeFrom(hexagon,1);
       for(Hexagon step : local){
-         if(!step.isObstacle() && !step.isVisited()){
+         if(!step.isObstacle() /*&& !step.isVisited()*/){
             reach.add(step);
             reach.addAll(calculateObstacleMovementRangeFromImpl(step, distance - 1));
          }
