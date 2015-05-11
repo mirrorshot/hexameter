@@ -20,11 +20,10 @@ import biz.pavonis.hexameter.api.exception.HexagonNotReachableException;
 public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 
     protected final HexagonalGrid hexagonalGrid;
-    protected Logger logger;
+    protected static final Logger LOGGER = Logger.getLogger("HexagonalGridCalculator");
 
     public HexagonalGridCalculatorImpl(HexagonalGrid hexagonalGrid) {
         this.hexagonalGrid = hexagonalGrid;
-        logger = Logger.getLogger("HexagonalGridCalculator");
     }
 
     /**
@@ -44,7 +43,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
       throws HexagonNotReachableException{
       //TODO
       int distance;
-      //distance = calculateObstacleDistanceBetweenImpl(hex0, hex1, new ArrayList<Hexagon>()).size();
+      distance = calculateObstacleDistanceBetweenImpl(hex0, hex1, new ArrayList<Hexagon>()).size();
       distance = 0;
       return distance;
    }
@@ -78,7 +77,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
             }
             catch(HexagonNotReachableException hnre){
                notAvalible++;
-               logger.log(Level.INFO, "Blind path", hnre);
+               LOGGER.log(Level.INFO, "Blind path", hnre);
             }
          }
          else
@@ -101,7 +100,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
                    ret.add(hexagonalGrid.getByGridCoordinate(hexagon.getGridX() + x, hexagon.getGridZ() + z));
                 }
                 catch(HexagonNotFoundException hnfe){
-                   //cannot go outside borders
+                   LOGGER.log(Level.INFO, "Cannot go outside of borders", hnfe);
                 }
             }
         }
