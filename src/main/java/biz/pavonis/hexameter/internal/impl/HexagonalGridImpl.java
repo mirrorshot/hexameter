@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
@@ -22,6 +24,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     private static final int[][] NEIGHBORS = {{+1, 0}, {+1, -1}, {0, -1}, {-1, 0}, {-1, +1}, {0, +1}};
     private static final int NEIGHBOR_X_INDEX = 0;
     private static final int NEIGHBOR_Z_INDEX = 1;
+    private static final Logger LOGGER = Logger.getLogger("HexagonalGridImplLogger");
 
     private final GridLayoutStrategy gridLayoutStrategy;
     private final SharedHexagonData sharedHexagonData;
@@ -168,7 +171,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
                 neighbors.add(retHex);
                }
                catch(HexagonNotFoundException hnfe){
-                  //cannot go out of the border, but no need to stop execution
+                  LOGGER.log(Level.INFO, "Cannot go out of the border", hnfe);
                }
             }
         }

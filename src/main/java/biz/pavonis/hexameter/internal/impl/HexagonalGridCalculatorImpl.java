@@ -19,22 +19,22 @@ import biz.pavonis.hexameter.api.exception.HexagonNotReachableException;
 
 public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 
-    protected final HexagonalGrid hexagonalGrid;
-    protected static final Logger LOGGER = Logger.getLogger("HexagonalGridCalculator");
+   protected final HexagonalGrid hexagonalGrid;
+   private static final Logger LOGGER = Logger.getLogger("HexagonalGridCalculator");
 
-    public HexagonalGridCalculatorImpl(HexagonalGrid hexagonalGrid) {
-        this.hexagonalGrid = hexagonalGrid;
-    }
+   public HexagonalGridCalculatorImpl(HexagonalGrid hexagonalGrid) {
+      this.hexagonalGrid = hexagonalGrid;
+   }
 
     /**
     * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateDistanceBetween(biz.pavonis.hexameter.api.Hexagon, biz.pavonis.hexameter.api.Hexagon)
     */
    public int calculateDistanceBetween(Hexagon hex0, Hexagon hex1) {
-        int absX = abs(hex0.getGridX() - hex1.getGridX());
-        int absY = abs(hex0.getGridY() - hex1.getGridY());
-        int absZ = abs(hex0.getGridZ() - hex1.getGridZ());
-        return max(max(absX, absY), absZ);
-    }
+      int absX = abs(hex0.getGridX() - hex1.getGridX());
+      int absY = abs(hex0.getGridY() - hex1.getGridY());
+      int absZ = abs(hex0.getGridZ() - hex1.getGridZ());
+      return max(max(absX, absY), absZ);
+   }
 
    /**
     * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateObstacleDistanceBetween(biz.pavonis.hexameter.api.Hexagon, biz.pavonis.hexameter.api.Hexagon)
@@ -55,7 +55,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
     * @param hex1 end hexagon
     * @return distance
     */
-   public List<Hexagon> calculateObstacleDistanceBetweenImpl(Hexagon hex0, Hexagon hex1, ArrayList<Hexagon> path)
+   public List<Hexagon> calculateObstacleDistanceBetweenImpl(Hexagon hex0, Hexagon hex1, List<Hexagon> path)
       throws HexagonNotReachableException{
       //TODO
       if(hex0.equals(hex1))
@@ -69,7 +69,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
       for(Hexagon hex : near){
          if(!hex.isObstacle() && !hex.isVisited()){
             try{
-               List<Hexagon> locPath = calculateObstacleDistanceBetweenImpl(hex, hex1,(ArrayList<Hexagon>) path.clone());
+               List<Hexagon> locPath = calculateObstacleDistanceBetweenImpl(hex, hex1,(ArrayList<Hexagon>) ((ArrayList<Hexagon>)path).clone());
                if(locPath.size() < distance){
                   distance = locPath.size();
                   minPath = locPath;
@@ -88,24 +88,24 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
       return minPath;
    }
    
-    /**
+   /**
     * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateMovementRangeFrom(biz.pavonis.hexameter.api.Hexagon, int)
     */
    public Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
-        Set<Hexagon> ret = new HashSet<Hexagon>();
-        for (int x = -distance; x <= distance; x++) {
-            for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
-                int z = -x - y;
-                try{
-                   ret.add(hexagonalGrid.getByGridCoordinate(hexagon.getGridX() + x, hexagon.getGridZ() + z));
-                }
-                catch(HexagonNotFoundException hnfe){
-                   LOGGER.log(Level.INFO, "Cannot go outside of borders", hnfe);
-                }
+      Set<Hexagon> ret = new HashSet<Hexagon>();
+      for (int x = -distance; x <= distance; x++) {
+         for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
+            int z = -x - y;
+            try{
+               ret.add(hexagonalGrid.getByGridCoordinate(hexagon.getGridX() + x, hexagon.getGridZ() + z));
             }
-        }
-        return ret;
-    }
+            catch(HexagonNotFoundException hnfe){
+               LOGGER.log(Level.INFO, "Cannot go outside of borders", hnfe);
+            }
+         }
+      }
+      return ret;
+   }
 
    /**
     * @see biz.pavonis.hexameter.api.HexagonalGridCalculator#calculateObstacleMovementRangeFrom(biz.pavonis.hexameter.api.Hexagon, int)

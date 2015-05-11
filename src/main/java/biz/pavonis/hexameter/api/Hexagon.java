@@ -94,6 +94,13 @@ public interface Hexagon extends Serializable {
     * Sets the {@link Hexagon} to not be an obstacle.
     */
    void noMoreObstacle();
+   
+   /**
+    * Switch the obstacle status and returns the new status
+    * 
+    * @return the obstacle status
+    */
+   boolean switchObstacleStatus();
     
     /**
      * Looks if the {@link Hexagon} is an obstacle.
