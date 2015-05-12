@@ -1,4 +1,4 @@
-package hexameter.swing;
+package biz.pavonis.hexameter.api.swing;
 
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;

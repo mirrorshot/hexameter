@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-extraProperties=sonar.test\=src/test/java\r\nsonar.host.url\=http\://localhost\:9000/\r\nsonar.language\=java
+extraProperties=sonar.host.url\=http\://localhost\:9000/\r\nsonar.test\=src/test/java\r\nsonar.language\=java
 projectKey=it.mirrorshot\:it.mirrorshot.hexameter
 serverUrl=http\://localhost\:9000
 version=2
