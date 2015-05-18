@@ -71,7 +71,7 @@ public interface Hexagon extends Serializable {
    /**
     * Sets the {@link Hexagon} as visited for recursive explorations.
     */
-   void visit();
+   void visit(int distance);
    
    /**
     * Sets the {@link Hexagon} as not visited, after a recursive exploration.

@@ -22,7 +22,7 @@ public class HexagonImpl implements Hexagon {
    private final int gridX;
    private final int gridZ;
    private AtomicReference<Object> satelliteData;
-   private boolean visited;
+   private int distance;
    private boolean obstacle;
 
    public HexagonImpl(SharedHexagonData sharedHexagonData, int gridX, int gridZ) {
@@ -52,6 +52,7 @@ public class HexagonImpl implements Hexagon {
    /* 
     * @see biz.pavonis.hexameter.api.Hexagon#getPoints()
     */
+   @Override
    public final HexagonPoint[] getHexagonPoints() {
       HexagonPoint[] points = new HexagonPoint[6];
       for (int i = 0; i < 6; i++) {
@@ -63,11 +64,12 @@ public class HexagonImpl implements Hexagon {
       return points;
    }
 
-   @SuppressWarnings("unchecked")
+   @Override
    public final <T> T getSatelliteData() {
       return (T) satelliteData.get();
    }
 
+   @Override
    public final <T> void setSatelliteData(T satelliteData) {
       this.satelliteData.set(satelliteData);
    }
@@ -92,16 +94,16 @@ public class HexagonImpl implements Hexagon {
       return centerY;
    }
     
-   public void visit(){
-      visited = true;
+   public void visit(int distance){
+      this.distance = distance;
    }
     
    public void clearVisit(){
-      visited = false;
+      distance = Integer.MAX_VALUE;
    }
     
    public Boolean isVisited(){
-      return visited;
+      return distance != Integer.MAX_VALUE;
    }
     
    public void fromNowObstacle(){

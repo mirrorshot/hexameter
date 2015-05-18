@@ -61,7 +61,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
       if(hex0.equals(hex1))
          return path;
       int distance = Integer.MAX_VALUE;
-      hex0.visit();
+      hex0.visit(1);
       path.add(hex0);
       List<Hexagon> minPath = null;
       Set<Hexagon> near = calculateMovementRangeFrom(hex0,1);
