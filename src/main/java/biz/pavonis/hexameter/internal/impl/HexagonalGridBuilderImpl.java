@@ -33,7 +33,7 @@ public final class HexagonalGridBuilderImpl implements HexagonalGridBuilder{
 
     private int gridWidth;
     private int gridHeight;
-    private double radius;
+    private Double radius;
     private Map<String, Hexagon> storage = new ConcurrentHashMap<String, Hexagon>();
     private List<AxialCoordinate> customCoordinates = new ArrayList<AxialCoordinate>();
     private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
@@ -170,7 +170,7 @@ public final class HexagonalGridBuilderImpl implements HexagonalGridBuilder{
         }
     }
 
-    public double getRadius() {
+    public Double getRadius() {
         return radius;
     }
 

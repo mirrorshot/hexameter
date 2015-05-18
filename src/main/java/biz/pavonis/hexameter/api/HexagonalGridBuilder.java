@@ -137,7 +137,7 @@ public interface HexagonalGridBuilder {
    /**
     * @return
     */
-   public double getRadius();
+   public Double getRadius();
 
    /**
     * @return

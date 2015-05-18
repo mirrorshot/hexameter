@@ -5,8 +5,8 @@ package biz.pavonis.hexameter.api;
  */
 public final class HexagonPoint {
 
-    private final double x;
-    private final double y;
+    private final Double x;
+    private final Double y;
 
     public HexagonPoint(double x, double y) {
         super();
@@ -18,7 +18,7 @@ public final class HexagonPoint {
    /**
     * @return value of x of point
     */
-   public double getX() {
+   public Double getX() {
       return x;
    }
 
@@ -26,7 +26,7 @@ public final class HexagonPoint {
    /**
     * @return value of y of point
     */
-   public double getY() {
+   public Double getY() {
       return y;
    }
 
@@ -37,7 +37,7 @@ public final class HexagonPoint {
      * @param p1
      * @return distance
      */
-    public static final double distance(HexagonPoint p0, HexagonPoint p1) {
+    public static final Double distance(HexagonPoint p0, HexagonPoint p1) {
         return Math.sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
     }
 }

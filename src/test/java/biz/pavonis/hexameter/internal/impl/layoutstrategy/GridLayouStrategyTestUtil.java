@@ -6,7 +6,7 @@ import biz.pavonis.hexameter.internal.impl.HexagonalGridBuilderImpl;
 
 public class GridLayouStrategyTestUtil {
 
-    private static final int RADIUS = 30;
+    private static final Double RADIUS = 30D;
     private static final int GRID_WIDTH = 3;
     private static final int GRID_HEIGHT = 3;
     private static final HexagonOrientation ORIENTATION = HexagonOrientation.POINTY_TOP;

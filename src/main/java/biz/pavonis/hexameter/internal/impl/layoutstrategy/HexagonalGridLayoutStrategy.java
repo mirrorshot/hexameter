@@ -20,33 +20,35 @@ import biz.pavonis.hexameter.internal.impl.HexagonImpl;
  * shape.
  */
 public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrategy {
-   
-   public static final long serialVersionUID = 1L;
 
-    public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
-        double gridSize = builder.getGridHeight();
-        Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
-        int startX = (int) (HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? floor(gridSize / 2d) : round(gridSize / 4d));
-        int hexRadius = (int) floor(gridSize / 2d);
-        int minX = startX - hexRadius;
-        for (int y = 0; y < gridSize; y++) {
-            int distanceFromMid = Math.abs(hexRadius - y);
-            for (int x = max(startX, minX); x <= max(startX, minX) + hexRadius + hexRadius - distanceFromMid; x++) {
-                int gridX = x;
-                int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - (int) floor(gridSize / 4d) : y;
-                Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), gridX, gridZ);
-                hexagons.put(createKeyFromCoordinate(gridX, gridZ), hexagon);
-            }
-            startX--;
-        }
-        addCustomHexagons(builder, hexagons);
-        return hexagons;
-    }
+   private static final long serialVersionUID = 6307117561162357893L;
 
-    public boolean checkParameters(int gridHeight, int gridWidth) {
-        boolean superResult = super.checkParameters(gridHeight, gridWidth);
-        boolean result = gridHeight == gridWidth && abs(gridHeight % 2) == 1;
-        return result && superResult;
-    }
+   @Override
+   public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
+      double gridSize = builder.getGridHeight();
+      Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
+      int startX = (int) (HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? floor(gridSize / 2d) : round(gridSize / 4d));
+      int hexRadius = (int) floor(gridSize / 2d);
+      int minX = startX - hexRadius;
+      for (int y = 0; y < gridSize; y++) {
+         int distanceFromMid = Math.abs(hexRadius - y);
+         for (int x = max(startX, minX); x <= max(startX, minX) + hexRadius + hexRadius - distanceFromMid; x++) {
+            int gridX = x;
+            int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - (int) floor(gridSize / 4d) : y;
+            Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), gridX, gridZ);
+            hexagons.put(createKeyFromCoordinate(gridX, gridZ), hexagon);
+         }
+         startX--;
+      }
+      addCustomHexagons(builder, hexagons);
+      return hexagons;
+   }
+
+   @Override
+   public boolean checkParameters(int gridHeight, int gridWidth) {
+      boolean superResult = super.checkParameters(gridHeight, gridWidth);
+      boolean result = gridHeight == gridWidth && abs(gridHeight % 2) == 1;
+      return result && superResult;
+   }
 
 }

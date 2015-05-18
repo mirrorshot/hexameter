@@ -2,11 +2,11 @@ package biz.pavonis.hexameter.internal.impl;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
 import biz.pavonis.hexameter.api.HexagonPoint;
 import biz.pavonis.hexameter.internal.SharedHexagonData;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class HexagonImpl implements Hexagon {
 
    private static final long serialVersionUID = -6658255569921274603L;
+   
    private final SharedHexagonData sharedHexagonData;
    private final double centerX;
    private final double centerY;
@@ -83,11 +84,11 @@ public class HexagonImpl implements Hexagon {
       return gridZ;
    }
 
-   public final double getCenterX() {
+   public final Double getCenterX() {
       return centerX;
    }
 
-   public final double getCenterY() {
+   public final Double getCenterY() {
       return centerY;
    }
     
@@ -99,7 +100,7 @@ public class HexagonImpl implements Hexagon {
       visited = false;
    }
     
-   public boolean isVisited(){
+   public Boolean isVisited(){
       return visited;
    }
     
@@ -111,12 +112,12 @@ public class HexagonImpl implements Hexagon {
       obstacle = false;
    }
    
-   public boolean switchObstacleStatus(){
+   public Boolean switchObstacleStatus(){
       obstacle = !obstacle;
       return obstacle;
    }
     
-   public boolean isObstacle(){
+   public Boolean isObstacle(){
       return obstacle;
    }
 

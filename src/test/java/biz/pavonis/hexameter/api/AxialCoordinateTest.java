@@ -1,13 +1,10 @@
 package biz.pavonis.hexameter.api;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-import biz.pavonis.hexameter.categories.UnitTests;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category(UnitTests.class)
 public class AxialCoordinateTest {
 
     private static final int TEST_GRID_X = 4;

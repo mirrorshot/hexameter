@@ -2,10 +2,10 @@ package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
 import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
 import static biz.pavonis.hexameter.api.HexagonOrientation.FLAT_TOP;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 

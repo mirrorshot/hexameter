@@ -1,22 +1,16 @@
 package biz.pavonis.hexameter.api;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.CustomGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.TrapezoidGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
-import biz.pavonis.hexameter.testutils.EnumTest;
-import biz.pavonis.hexameter.testutils.TestUtils;
-import org.junit.Test;
 
-public class HexagonalGridLayoutTest extends EnumTest {
-
-    @Test
-    public void testEnum() {
-        TestUtils.superficialEnumCodeCoverage(HexagonalGridLayout.class);
-    }
+public class HexagonalGridLayoutTest{
 
     @Test
     public void testGetGridLayoutStrategyCustom() {

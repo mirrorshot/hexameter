@@ -1,6 +1,6 @@
 package biz.pavonis.hexameter.api.exception;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

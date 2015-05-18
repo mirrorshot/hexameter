@@ -8,9 +8,9 @@ public enum HexagonOrientation {
 
     POINTY_TOP(0.5f), FLAT_TOP(0);
 
-    private float coordinateOffset;
+    private Double coordinateOffset;
 
-    private HexagonOrientation(float coordinateOffset) {
+    private HexagonOrientation(double coordinateOffset) {
         this.coordinateOffset = coordinateOffset;
     }
 
@@ -21,7 +21,7 @@ public enum HexagonOrientation {
      *
      * @return offset
      */
-    public final float getCoordinateOffset() {
+    public final Double getCoordinateOffset() {
         return coordinateOffset;
     }
 

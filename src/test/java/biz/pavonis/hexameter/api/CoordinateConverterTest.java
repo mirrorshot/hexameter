@@ -4,13 +4,10 @@ import static biz.pavonis.hexameter.api.CoordinateConverter.convertOffsetCoordin
 import static biz.pavonis.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialZ;
 import static biz.pavonis.hexameter.api.CoordinateConverter.createCoordinateFromKey;
 import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-import biz.pavonis.hexameter.categories.UnitTests;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category(UnitTests.class)
 public class CoordinateConverterTest {
 
     private static final int TEST_X = 3;

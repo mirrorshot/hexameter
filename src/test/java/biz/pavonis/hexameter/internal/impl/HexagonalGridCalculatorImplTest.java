@@ -1,17 +1,19 @@
 package biz.pavonis.hexameter.internal.impl;
 
-import static junit.framework.Assert.assertEquals;
-import biz.pavonis.hexameter.api.Hexagon;
-import biz.pavonis.hexameter.api.HexagonalGrid;
-import biz.pavonis.hexameter.api.HexagonalGridBuilder;
-import biz.pavonis.hexameter.api.HexagonalGridCalculator;
-import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import biz.pavonis.hexameter.api.Hexagon;
+import biz.pavonis.hexameter.api.HexagonalGrid;
+import biz.pavonis.hexameter.api.HexagonalGridBuilder;
+import biz.pavonis.hexameter.api.HexagonalGridCalculator;
+import biz.pavonis.hexameter.api.exception.HexagonNotFoundException;
 
 public class HexagonalGridCalculatorImplTest {
 
@@ -54,7 +56,7 @@ public class HexagonalGridCalculatorImplTest {
            assertEquals(expected, actual);
         }
         catch(HexagonNotFoundException hnfe){
-           
+           fail("Hexagon not found!");
         }
     }
 
@@ -88,7 +90,7 @@ public class HexagonalGridCalculatorImplTest {
           assertEquals(expected, actual);
        }
        catch(HexagonNotFoundException hnfe){
-          
+          fail("Hexagon not found!");
        }
     }
 

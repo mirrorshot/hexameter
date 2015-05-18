@@ -45,14 +45,14 @@ public interface Hexagon extends Serializable {
      *
      * @return center x
      */
-    double getCenterX();
+    Double getCenterX();
 
     /**
      * Returns the center <b>y</b> coordinate of this {@link Hexagon}.
      *
      * @return center y
      */
-    double getCenterY();
+    Double getCenterY();
 
     /**
      * Can be used to add arbitrary satellite data to a {@link Hexagon}.
@@ -83,7 +83,7 @@ public interface Hexagon extends Serializable {
     * 
     * @return true if the hexagon has been visited
     */
-   boolean isVisited();
+   Boolean isVisited();
     
    /**
     * Sets the {@link Hexagon} to be an obstacle.
@@ -100,13 +100,13 @@ public interface Hexagon extends Serializable {
     * 
     * @return the obstacle status
     */
-   boolean switchObstacleStatus();
+   Boolean switchObstacleStatus();
     
     /**
      * Looks if the {@link Hexagon} is an obstacle.
      * 
     * @return true if the hexagon is set to be a obstacle in the map
     */
-   boolean isObstacle();
+   Boolean isObstacle();
 
 }

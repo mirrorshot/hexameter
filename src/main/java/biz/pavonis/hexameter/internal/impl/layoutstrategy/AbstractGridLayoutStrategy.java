@@ -10,20 +10,22 @@ import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.internal.impl.HexagonImpl;
 
 public abstract class AbstractGridLayoutStrategy implements GridLayoutStrategy {
+
+   private static final long serialVersionUID = -8423728807976654539L;
+
+   protected void addCustomHexagons(HexagonalGridBuilder builder, Map<String, Hexagon> hexagons) {
+      for (AxialCoordinate coord : builder.getCustomCoordinates()) {
+         if (hexagons.containsKey(createKeyFromCoordinate(coord.getGridX(), coord.getGridZ()))) {
+            throw new IllegalArgumentException("There is already a hexagon in the grid with axial coordinates: (" + coord.getGridX() + "," + coord.getGridZ() + ")!");
+         }
+         Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), coord.getGridX(), coord.getGridZ());
+         hexagons.put(createKeyFromCoordinate(coord.getGridX(), coord.getGridZ()), hexagon);
+      }
+   }
+
+   @Override
+   public boolean checkParameters(int gridHeight, int gridWidth) {
+      return gridHeight > 0 && gridWidth > 0;
+   }
    
-   public static final long serialVersionUID = 1L;
-
-    protected void addCustomHexagons(HexagonalGridBuilder builder, Map<String, Hexagon> hexagons) {
-        for (AxialCoordinate coord : builder.getCustomCoordinates()) {
-            if (hexagons.containsKey(createKeyFromCoordinate(coord.getGridX(), coord.getGridZ()))) {
-                throw new IllegalArgumentException("There is already a hexagon in the grid with axial coordinates: (" + coord.getGridX() + "," + coord.getGridZ() + ")!");
-            }
-            Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), coord.getGridX(), coord.getGridZ());
-            hexagons.put(createKeyFromCoordinate(coord.getGridX(), coord.getGridZ()), hexagon);
-        }
-    }
-
-    public boolean checkParameters(int gridHeight, int gridWidth) {
-        return gridHeight > 0 && gridWidth > 0;
-    }
 }

@@ -14,41 +14,42 @@ import biz.pavonis.hexameter.api.HexagonalGrid;
  */
 public final class SharedHexagonData implements Serializable{
    
-   public static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = -5728758529278680222L;
+   
+   private final HexagonOrientation orientation;
+   private final Double radius;
+   private final Double height;
+   private final Double width;
+   
+   public SharedHexagonData(HexagonOrientation orientation, double radius) {
+      this.orientation = orientation;
+      this.radius = radius;
+      this.height = HexagonOrientation.FLAT_TOP.equals(orientation) ? calculateHeight(radius) : calculateWidth(radius);
+      this.width = HexagonOrientation.FLAT_TOP.equals(orientation) ? calculateWidth(radius) : calculateHeight(radius);
+   }
+   
+   private double calculateHeight(double radius) {
+      return sqrt(3) * radius;
+   }
 
-    private final HexagonOrientation orientation;
-    private final double radius;
-    private final double height;
-    private final double width;
+   private double calculateWidth(double radius) {
+      return radius * 3 / 2;
+   }
 
-    public SharedHexagonData(HexagonOrientation orientation, double radius) {
-        this.orientation = orientation;
-        this.radius = radius;
-        this.height = HexagonOrientation.FLAT_TOP.equals(orientation) ? calculateHeight(radius) : calculateWidth(radius);
-        this.width = HexagonOrientation.FLAT_TOP.equals(orientation) ? calculateWidth(radius) : calculateHeight(radius);
-    }
+   public HexagonOrientation getOrientation() {
+      return orientation;
+   }
 
-    private double calculateHeight(double radius) {
-        return sqrt(3) * radius;
-    }
+   public Double getRadius() {
+      return radius;
+   }
 
-    private double calculateWidth(double radius) {
-        return radius * 3 / 2;
-    }
+   public Double getHeight() {
+      return height;
+   }
 
-    public HexagonOrientation getOrientation() {
-        return orientation;
-    }
+   public Double getWidth() {
+      return width;
+   }
 
-    public double getRadius() {
-        return radius;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public double getWidth() {
-        return width;
-    }
 }

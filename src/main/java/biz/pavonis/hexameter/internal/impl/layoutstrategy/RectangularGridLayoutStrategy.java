@@ -14,21 +14,22 @@ import biz.pavonis.hexameter.internal.impl.HexagonImpl;
  * shape.
  */
 public final class RectangularGridLayoutStrategy extends AbstractGridLayoutStrategy {
-   
-   public static final long serialVersionUID = 1L;
 
-    public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
-        Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
-        for (int y = 0; y < builder.getGridHeight(); y++) {
-            for (int x = 0; x < builder.getGridWidth(); x++) {
-                int gridX = CoordinateConverter.convertOffsetCoordinatesToAxialX(x, y, builder.getOrientation());
-                int gridZ = CoordinateConverter.convertOffsetCoordinatesToAxialZ(x, y, builder.getOrientation());
-                Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), gridX, gridZ);
-                hexagons.put(CoordinateConverter.createKeyFromCoordinate(gridX, gridZ), hexagon);
-            }
-        }
-        addCustomHexagons(builder, hexagons);
-        return hexagons;
-    }
+   private static final long serialVersionUID = -8634703801052395250L;
+
+   @Override
+   public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
+      Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
+      for (int y = 0; y < builder.getGridHeight(); y++) {
+         for (int x = 0; x < builder.getGridWidth(); x++) {
+            int gridX = CoordinateConverter.convertOffsetCoordinatesToAxialX(x, y, builder.getOrientation());
+            int gridZ = CoordinateConverter.convertOffsetCoordinatesToAxialZ(x, y, builder.getOrientation());
+            Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), gridX, gridZ);
+            hexagons.put(CoordinateConverter.createKeyFromCoordinate(gridX, gridZ), hexagon);
+         }
+      }
+      addCustomHexagons(builder, hexagons);
+      return hexagons;
+   }
 
 }

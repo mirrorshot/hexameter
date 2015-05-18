@@ -12,13 +12,14 @@ import biz.pavonis.hexameter.api.HexagonalGridBuilder;
  * shape.
  */
 public final class CustomGridLayoutStrategy extends AbstractGridLayoutStrategy {
-   
-   public static final long serialVersionUID = 1L;
 
-    public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
-        Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
-        addCustomHexagons(builder, hexagons);
-        return hexagons;
-    }
+   private static final long serialVersionUID = -7508106527797138103L;
+
+   @Override
+   public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
+      Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
+      addCustomHexagons(builder, hexagons);
+      return hexagons;
+   }
 
 }

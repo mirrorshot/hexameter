@@ -1,8 +1,6 @@
 package biz.pavonis.hexameter.internal.impl;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.*;
 import biz.pavonis.hexameter.api.AxialCoordinate;
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonOrientation;
@@ -10,7 +8,6 @@ import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridCalculator;
 import biz.pavonis.hexameter.api.HexagonalGridLayout;
 import biz.pavonis.hexameter.api.exception.HexagonalGridCreationException;
-import biz.pavonis.hexameter.categories.UnitTests;
 import biz.pavonis.hexameter.internal.impl.HexagonalGridBuilderImpl;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 
@@ -21,9 +18,7 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category(UnitTests.class)
 public class HexagonalGridBuilderImplTest {
 
     private static final int GRID_HEIGHT = 9;
@@ -31,7 +26,7 @@ public class HexagonalGridBuilderImplTest {
     private static final GridLayoutStrategy GRID_LAYOUT_STRATEGY = HexagonalGridLayout.RECTANGULAR.getGridLayoutStrategy();
     private static final int GRID_WIDTH = 9;
     private static final HexagonOrientation ORIENTATION = HexagonOrientation.FLAT_TOP;
-    private static final double RADIUS = 30;
+    private static final Double RADIUS = 30D;
 
     private HexagonalGridBuilderImpl target;
 

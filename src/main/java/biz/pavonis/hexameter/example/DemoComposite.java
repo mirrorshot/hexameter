@@ -49,8 +49,8 @@ public class DemoComposite extends Composite {
 	private HexagonalGridCalculator hexagonalGridCalculator;
 	private static final int DEFAULT_GRID_WIDTH = 15;
 	private static final int DEFAULT_GRID_HEIGHT = 15;
-	private static final int DEFAULT_RADIUS = 30;
-	private static final HexagonOrientation DEFAULT_ORIENTATION = HexagonOrientation.POINTY_TOP;
+	private static final int DEFAULT_RADIUS = 20;
+	private static final HexagonOrientation DEFAULT_ORIENTATION = HexagonOrientation.FLAT_TOP;
 	private static final HexagonalGridLayout DEFAULT_GRID_LAYOUT = HexagonalGridLayout.RECTANGULAR;
 	private static final int CANVAS_WIDTH = 1000;
 
@@ -476,9 +476,9 @@ public class DemoComposite extends Composite {
 				int z = -(x + y);
 				gc.setFont(font);
 				gc.setForeground(red);
-				gc.drawString("x:" + x, (int) hexagon.getCenterX() - fontSize, (int) (hexagon.getCenterY() - fontSize * 2.5), true);
-				gc.drawString("y:" + y, (int) (hexagon.getCenterX() - fontSize * 2.8), (int) hexagon.getCenterY() + fontSize / 3, true);
-				gc.drawString("z:" + z, (int) (hexagon.getCenterX() + fontSize / 3), (int) hexagon.getCenterY() + fontSize / 3, true);
+				gc.drawString("x:" + x, hexagon.getCenterX().intValue() - fontSize, (int) (hexagon.getCenterY() - fontSize * 2.5), true);
+				gc.drawString("y:" + y, (int) (hexagon.getCenterX() - fontSize * 2.8), hexagon.getCenterY().intValue() + fontSize / 3, true);
+				gc.drawString("z:" + z, (int) (hexagon.getCenterX() + fontSize / 3), hexagon.getCenterY().intValue() + fontSize / 3, true);
 			}
 
 			private int[] convertToPointsArr(HexagonPoint[] points) {

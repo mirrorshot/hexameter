@@ -1,7 +1,7 @@
 package biz.pavonis.hexameter.internal;
 
 import static java.lang.Math.sqrt;
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import biz.pavonis.hexameter.api.HexagonOrientation;
 import org.junit.After;
@@ -10,7 +10,7 @@ import org.junit.Test;
 public class SharedHexagonDataTest {
 
     private static final HexagonOrientation ORIENTATION = HexagonOrientation.FLAT_TOP;
-    private static final double RADIUS = 30;
+    private static final Double RADIUS = 30D;
     SharedHexagonData target;
 
     @After
@@ -27,32 +27,32 @@ public class SharedHexagonDataTest {
     @Test
     public void testCalculateWidthWithPointy() {
         target = createWithPointy();
-        double expectedWidth = sqrt(3) * RADIUS;
-        double actualWidth = target.getWidth();
+        Double expectedWidth = sqrt(3) * RADIUS;
+        Double actualWidth = target.getWidth();
         assertEquals(expectedWidth, actualWidth);
     }
 
     @Test
     public void testCalculateWidthWithFlat() {
         target = createWithFlat();
-        double expectedWidth = RADIUS * 3 / 2;
-        double actualWidth = target.getWidth();
+        Double expectedWidth = RADIUS * 3 / 2;
+        Double actualWidth = target.getWidth();
         assertEquals(expectedWidth, actualWidth);
     }
 
     @Test
     public void testCalculateHeightWithPointy() {
         target = createWithPointy();
-        double expectedHeight = RADIUS * 3 / 2;
-        double actualHeight = target.getHeight();
+        Double expectedHeight = RADIUS * 3 / 2;
+        Double actualHeight = target.getHeight();
         assertEquals(expectedHeight, actualHeight);
     }
 
     @Test
     public void testCalculateHeightWithFlat() {
         target = createWithFlat();
-        double expectedHeight = sqrt(3) * RADIUS;
-        double actualHeight = target.getHeight();
+        Double expectedHeight = sqrt(3) * RADIUS;
+        Double actualHeight = target.getHeight();
         assertEquals(expectedHeight, actualHeight);
     }
 

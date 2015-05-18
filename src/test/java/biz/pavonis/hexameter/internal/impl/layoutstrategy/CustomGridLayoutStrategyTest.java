@@ -1,6 +1,6 @@
 package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ import biz.pavonis.hexameter.internal.impl.HexagonalGridBuilderImpl;
 
 public class CustomGridLayoutStrategyTest {
 
-    private static final int RADIUS = 30;
+    private static final Double RADIUS = 30D;
     private static final int GRID_WIDTH = 0;
     private static final int GRID_HEIGHT = 0;
     private static final HexagonOrientation ORIENTATION = HexagonOrientation.POINTY_TOP;

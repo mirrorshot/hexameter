@@ -1,9 +1,10 @@
 package biz.pavonis.hexameter.internal.impl;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -96,7 +97,7 @@ public class HexagonalGridImplTest {
    		}
 	   }
 	   catch(HexagonNotFoundException hnfe){
-	      
+	      fail("Hexagon not found!");
 	   }
 	}
 
@@ -126,7 +127,7 @@ public class HexagonalGridImplTest {
    		}
 	   }
 	   catch(HexagonNotFoundException hnfe){
-	      
+	      fail("Hexagon not found!");
 	   }
 	}
 
@@ -149,7 +150,7 @@ public class HexagonalGridImplTest {
 		   assertFalse(target.containsCoordinate(gridX, gridZ));
 		}
 		catch(HexagonNotFoundException hnfe){
-		   
+		   fail("Hexagon not found!");
 		}
 	}
 
@@ -169,7 +170,7 @@ public class HexagonalGridImplTest {
    		assertNotNull(hex);
 		}
 		catch(HexagonNotFoundException hnfe){
-		   
+		   fail("Hexagon not found!");
 		}
 	}
 
@@ -190,7 +191,7 @@ public class HexagonalGridImplTest {
    		assertTrue(hex.getGridZ() == 5);
 		}
 		catch(HexagonNotFoundException hnfe){
-		   
+		   fail("Hexagon not found!");
 		}
 	}
 
@@ -204,7 +205,7 @@ public class HexagonalGridImplTest {
    		assertTrue(hex.getGridZ() == 5);
 		}
       catch(HexagonNotFoundException hnfe){
-         
+         fail("Hexagon not found");
       }
 	}
 
@@ -218,7 +219,7 @@ public class HexagonalGridImplTest {
    		assertTrue(hex.getGridZ() == 5);
 		}
       catch(HexagonNotFoundException hnfe){
-         
+         fail("Hexagon not found!");
       }
 	}
 
@@ -237,7 +238,7 @@ public class HexagonalGridImplTest {
    		assertEquals(expected, actual);
 	   }
       catch(HexagonNotFoundException hnfe){
-         
+         fail("Hexagon not found!");
       }
 	}
 
@@ -252,7 +253,7 @@ public class HexagonalGridImplTest {
    		assertEquals(expected, actual);
 	   }
       catch(HexagonNotFoundException hnfe){
-         
+         fail("Hexagon not found!");
       }
 	}
 
@@ -266,7 +267,7 @@ public class HexagonalGridImplTest {
    		assertTrue(testHex.getSatelliteData() == null);
 	   }
       catch(HexagonNotFoundException hnfe){
-         
+         fail("Hexagon not found!");
       }
 	}
 }
